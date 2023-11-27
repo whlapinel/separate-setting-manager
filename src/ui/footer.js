@@ -1,5 +1,5 @@
 export default function Footer() {
-    return (
-        <h2>I am Footer!</h2>
-    )
+    const copyrightYear = (new Date).getFullYear();
+
+  return <h4>&copy; Will Lapinel {copyrightYear}</h4>;
 }

@@ -1,6 +1,3 @@
 export default function Navbar() {
-
-    return (
-    <h1>I am Navbar!</h1>
-    )
+  return(<h2>Separate Setting Manager</h2>);
 }
