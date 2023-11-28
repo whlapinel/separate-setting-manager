@@ -1,4 +1,4 @@
-import "./styles/DailySchedule.css";
+import '@/app/globals.css';
 
 function DailySchedule({testUnits, date}) {
 

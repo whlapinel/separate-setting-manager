@@ -1,5 +1,6 @@
 import GetTestData from "@/lib/data"
 import DailySchedule from "@/ui/daily-schedule";
+import '@/app/globals.css';
 
 export default async function Calendar() {
     
