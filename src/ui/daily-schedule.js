@@ -4,6 +4,7 @@ function DailySchedule({testUnits, date}) {
 
   let unitsOnThisDay = [];
   let studentsOnThisDay = [];
+  const testRoom = 'placeholder'
 
   function dateCheckEqual(date1, date2) {
     if (
@@ -44,8 +45,8 @@ function DailySchedule({testUnits, date}) {
     return (
         <>
         <li>{student.studentName}</li>
-        <li>{student.testName}</li>
-        <li>{student.teacherName}</li>
+        {/* <li>{student.testName}</li>
+        <li>{student.teacherName}</li> */}
         </>
     );
   });
@@ -53,10 +54,11 @@ function DailySchedule({testUnits, date}) {
   return (
     <div className="daily-container">
       <h4 className="date-header">{date.toDateString()}</h4>
+      <p className='room-header'>Room: {testRoom}</p>
       <ul className="list-container">
-        <li className="header-row">Student</li>
-        <li className="header-row">Test</li>
-        <li className="header-row">Teacher</li>
+        <li className="header-row">Students</li>
+        {/* <li className="header-row">Test</li>
+        <li className="header-row">Teacher</li> */}
         {studentList}
         </ul>
     </div>

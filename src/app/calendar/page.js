@@ -7,13 +7,11 @@ export default async function Calendar() {
     const testUnits = await GetTestData();
     const today = new Date();
     const thisMonday = findMonday(today);
-    console.log(thisMonday);
   
     let weekDates = [];
     for (let i = 0; i < 5; ++i) {
       let date = new Date(thisMonday);
       date.setDate(thisMonday.getDate() + i);
-      console.log(date);
       weekDates.push(date);
     }
   
@@ -28,15 +26,11 @@ export default async function Calendar() {
       <DailySchedule date={date} testUnits={testUnits} key={date}/>
     ))
   
-  
-    for (const date of weekDates) {
-      console.log(`date: ${date}`);
-    }
-  
-  
     return (
+      <main>
       <div className="weekly-container">
           {dateList}
       </div>
+      </main>
     );
 }

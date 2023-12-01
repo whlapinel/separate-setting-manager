@@ -1,8 +1,10 @@
 export default async function GetTestData() {
-  const res = await fetch("http://localhost:3001/testUnits");
-  console.log(res);
+  try {
+  const res = await fetch(`http://localhost:3001/testUnits`);
   const testUnits = await res.json();
-  console.log(testUnits);
-
   return testUnits;
+  } 
+  catch (err) {
+    console.error(err.message);
+  }
 }
