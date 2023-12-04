@@ -2,23 +2,24 @@ import GetTestData from "@/lib/data";
 import DailySchedule from "@/ui/daily-schedule";
 import "@/app/globals.css";
 import Link from 'next/link';
+import addDays from 'date-fns/addDays'
 
-export default async function Calendar() {
+export default async function Calendar({params}) {
+  let week = Number(params.week);
   const testUnits = await GetTestData();
   const today = new Date();
+  console.log(today);
   const thisMonday = findMonday(today);
-  let week = 0;
 
-  function advanceWeek() {
-    week++;
-  }
+  const viewedMonday = addDays(thisMonday, (week * 7));
+  console.log(viewedMonday);
 
   function showWeek() {}
 
   let weekDates = [];
   for (let i = 0; i < 5; ++i) {
-    let date = new Date(thisMonday);
-    date.setDate(thisMonday.getDate() + i);
+    let date = new Date(viewedMonday);
+    date.setDate(viewedMonday.getDate() + i);
     weekDates.push(date);
   }
 
@@ -32,23 +33,23 @@ export default async function Calendar() {
   let studentsByDay = [];
 
   for (const date of weekDates) {
-    console.log("");
-    console.log(`date: ${date.toDateString()}`);
+    // console.log("");
+    // console.log(`date: ${date.toDateString()}`);
     for (const unit of testUnits) {
-      console.log(`unit teacher: ${unit.teacher}`);
+      // console.log(`unit teacher: ${unit.teacher}`);
       for (const testEvent of unit.testEvents) {
-        console.log(`testEvent: ${testEvent.testDate}`);
-        console.log(
-          `date comparison: ${testEvent.testDate === date.toDateString()}`
-        );
+        // console.log(`testEvent: ${testEvent.testDate}`);
+        // console.log(
+          // `date comparison: ${testEvent.testDate === date.toDateString()}`
+        // );
         if (testEvent.testDate === date.toDateString()) {
           const studentsOnThisDay = {
             students: unit.students,
             date: date.toDateString()
           };
           studentsByDay = [...studentsByDay, studentsOnThisDay];
-          console.log(`studentsByDay:`);
-          console.log(studentsByDay);
+          // console.log(`studentsByDay:`);
+          // console.log(studentsByDay);
         }
       }
     }
@@ -59,12 +60,12 @@ export default async function Calendar() {
     for (const obj of studentsByDay) {
       console.log(obj.date);
       console.log(date.toDateString());
-      console.log(
-        `date comparison in dateList2: ${obj.date === date.toDateString()}`
-      );
+      // console.log(
+      //   `date comparison in dateList2: ${obj.date === date.toDateString()}`
+      // );
       if (obj.date === date.toDateString()) {
         studentsOnThisDay = [...studentsOnThisDay, ...obj.students];
-        console.log(`students on ${date}: ${studentsOnThisDay}`);
+        // console.log(`students on ${date}: ${studentsOnThisDay}`);
       }
     }
     return (

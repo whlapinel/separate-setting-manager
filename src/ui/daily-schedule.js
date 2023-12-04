@@ -15,10 +15,10 @@ function DailySchedule({date, studentsOnThisDay}) {
       return false;
     }
   }
-  console.log('Daily Schedule');
-  console.log(date);
-console.log(`students on this day:`);
-console.log(studentsOnThisDay);
+//   console.log('Daily Schedule');
+//   console.log(date);
+// console.log(`students on this day:`);
+// console.log(studentsOnThisDay);
 
   const studentList = studentsOnThisDay.map((obj) => {
     return (
