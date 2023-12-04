@@ -119,3 +119,19 @@ footer {
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.cal-nav-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cal-nav-btn-container a {
+  width: 150px;
+  background-color:rgb(253, 151, 253);
+  padding: 5px;
+  text-align: center;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+}

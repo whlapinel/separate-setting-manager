@@ -1,20 +1,14 @@
 import StudentList from "@/ui/student-list";
 import GetTestData from "@/lib/data";
-// import { useSearchParams } from "next/navigation";
 
 export default async function MyStudents({ params }) {
   const testUnits = await GetTestData();
-  console.log(`params: ${params.teacher}`);
-  const teacherParams = params.teacher;
-  const teacher = teacherParams.replace('%20',' ');
-  console.log(teacher);
+  const teacher = params.teacher.replace('%20',' ');
 
   if (!params.teacher) {
     return <p>no user selected</p>;
   } else {
-    console.log(testUnits?.length);
     for (const unit of testUnits) {
-      console.log(teacher === unit.teacher);
     }
     const userUnits = testUnits.filter((unit) => {
       return unit.teacher === teacher;
@@ -29,8 +23,6 @@ export default async function MyStudents({ params }) {
         </div>
       );
     });
-
-    console.log(unitList);
 
     return (
       <div className="unit-list">

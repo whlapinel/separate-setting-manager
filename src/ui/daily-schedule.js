@@ -1,9 +1,7 @@
 import '@/app/globals.css';
 
-function DailySchedule({testUnits, date}) {
+function DailySchedule({date, studentsOnThisDay}) {
 
-  let unitsOnThisDay = [];
-  let studentsOnThisDay = [];
   const testRoom = 'placeholder'
 
   function dateCheckEqual(date1, date2) {
@@ -17,37 +15,15 @@ function DailySchedule({testUnits, date}) {
       return false;
     }
   }
+  console.log('Daily Schedule');
+  console.log(date);
+console.log(`students on this day:`);
+console.log(studentsOnThisDay);
 
-  // FIXME I think below could be made much shorter with object destructuring
-  for (const unit of testUnits) {
-    console.log(unit);
-    for (const testEvent of unit.testEvents) {
-      console.log(testEvent);
-      console.log(testEvent.testDate);
-      const testEventDate = new Date(Date.parse(testEvent.testDate));
-      if (dateCheckEqual(testEventDate, date)) {
-        console.log(
-          `dates: ${testEventDate} and ${date} are equal, adding unit to day`
-        );
-        unitsOnThisDay.push(unit);
-        for (const student of unit.students) {
-          studentsOnThisDay.push({
-            studentName: student.name,
-            testName: testEvent.testName,
-            teacherName: unit.teacher
-          });
-        }
-      }
-    }
-  }
-
-  const studentList = studentsOnThisDay.map((student) => {
+  const studentList = studentsOnThisDay.map((obj) => {
     return (
-        <>
-        <li>{student.studentName}</li>
-        {/* <li>{student.testName}</li>
-        <li>{student.teacherName}</li> */}
-        </>
+        <li
+        key={obj.id}>{obj.name}</li>
     );
   });
 
