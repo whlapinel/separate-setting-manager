@@ -135,3 +135,30 @@ footer {
   border-width: 1px;
   border-radius: 5px;
 }
+
+.add-student-form {
+  display: grid;
+  grid-template-columns: repeat(2, 100px);
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.main-header {
+  text-align: center;
+}
+
+.side-nav {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 2rem;
+  width: 150px;
+  background-color: aqua;
+  height: 80vh;
+}
+
+.teacher-dashboard {
+  display: flex;
+}

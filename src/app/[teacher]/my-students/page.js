@@ -2,8 +2,10 @@ import StudentList from "@/ui/student-list";
 import GetTestData from "@/lib/data";
 
 export default async function MyStudents({ params }) {
-  const testUnits = await GetTestData();
-  const teacher = params.teacher.replace('%20',' ');
+  let { teacher } = params;
+  teacher = teacher.replace("%20", " ");
+  const testUnits = await GetTestData(teacher);
+  console.log(testUnits);
 
   if (!params.teacher) {
     return <p>no user selected</p>;

@@ -2,6 +2,7 @@
   "testUnits": [
   {
     "id": 0,
+    "name": "2AB EES",
     "block": 1,
     "teacher": "Peyton Manning",
     "students": [
@@ -33,6 +34,7 @@
   },
   {
     "id": 1,
+    "name": "1A Econ",
     "block": 2,
     "teacher": "Gino Brown",
     "students": [
@@ -64,6 +66,7 @@
   },
   {
     "id": 2,
+    "name": "3AB Biology",
     "block": 3,
     "teacher": "Nick Park",
     "students": [

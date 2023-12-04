@@ -8,11 +8,10 @@ export default async function Calendar({params}) {
   let week = Number(params.week);
   const testUnits = await GetTestData();
   const today = new Date();
-  console.log(today);
+  // console.log(today);
   const thisMonday = findMonday(today);
-
   const viewedMonday = addDays(thisMonday, (week * 7));
-  console.log(viewedMonday);
+  // console.log(viewedMonday);
 
   function showWeek() {}
 
