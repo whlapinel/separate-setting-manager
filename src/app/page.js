@@ -22,11 +22,10 @@ export default async function Home({ params }) {
 
   return (
     <main>
-      <h2>Separate Setting Manager</h2>
       <h3>
         "Log in" (Select Teacher from list)
-        <div className="teacher-list-container">{teacherList}</div>
       </h3>
+        <div className="teacher-list-container">{teacherList}</div>
     </main>
   );
 }

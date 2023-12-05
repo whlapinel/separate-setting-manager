@@ -8,16 +8,19 @@ export default async function AddTestEvent({ params }) {
   const classList = testUnits.map((unit) => {
 
     return(
-        <option value={unit.name}>{unit.name}</option>
+        <option value={unit.name} key={unit.name}>{unit.name}</option>
         );
   });
 
   return (
     <>
-      <h3>Add Test Event</h3>
-      <form className="add-test-event-form">
-        <label for="choose-class-select"></label>
+      <h4 className="form-header">Add Test Event</h4>
+      <form className="add-data-form">
+        <label for="choose-class-select">Choose Class</label>
         <select id="choose-class-select">{classList}</select>
+        <label for="choose-class-select">Enter Date</label>
+        <input type="date"/>
+        <button type="submit">Submit</button>
       </form>
     </>
   );

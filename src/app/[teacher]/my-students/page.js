@@ -18,18 +18,22 @@ export default async function MyStudents({ params }) {
 
     const unitList = userUnits.map((unit) => {
       return (
-        <div key={unit.block}>
-          <h3>Block: {unit.block}</h3>
-          <h4>Students</h4>
+        <div className="unit-container" key={unit.name}>
+          <h4 key={unit.name}>Class: {unit.name}</h4>
+          <h4>Block: {unit.block}</h4>
+          <h5>Students</h5>
           <StudentList unit={unit} teacher={teacher}/>
         </div>
       );
     });
 
     return (
+      <>
+      <h4 className="form-header">My Students</h4>
       <div className="unit-list">
       { unitList }
       </div>
+      </>
     )
   }
 }

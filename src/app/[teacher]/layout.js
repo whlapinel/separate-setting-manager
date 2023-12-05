@@ -11,7 +11,7 @@ export default function TeacherLayout({ children, params }) {
         teacher={teacher}
         />
         <div className="teacher-dashboard-main">
-          <h3>{[teacher]}'s Dashboard</h3>
+          <h3 className="main-header">{teacher}</h3>
           {children}
         </div>
       </div>
