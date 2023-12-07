@@ -19,6 +19,7 @@ export default async function AddStudent({ params }) {
     <>
     <AddStudentForm
     classList={classList}
+    teacher={teacher}
     />
     </>
   );

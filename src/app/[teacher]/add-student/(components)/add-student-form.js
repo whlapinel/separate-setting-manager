@@ -10,8 +10,9 @@ const defaultValue = {
   studentClass: ""
 };
 
-export default function AddStudentForm({ classList }) {
-  const [form, setForm] = useState(defaultValue)
+export default function AddStudentForm({ classList, teacher }) {
+
+  const [form, setForm] = useState({...defaultValue, teacher: teacher});
   const router = useRouter();
 
   function handleChange(e) {
@@ -46,6 +47,7 @@ export default function AddStudentForm({ classList }) {
           name="firstName"
           value={form.firstName}
           onChange={handleChange}
+          required
         />
         <label htmlFor="last-name">Last Name</label>
         <input
@@ -54,14 +56,16 @@ export default function AddStudentForm({ classList }) {
           name="lastName"
           value={form.lastName}
           onChange={handleChange}
+          required
         />
-        <label htmlFor="class">Class</label>
+        <label htmlFor="class" >Class</label>
         <select
           type="select"
           id="class"
           name="studentClass"
           value={form.studentClass}
           onChange={handleChange}
+          required
         >
           <option value={""}> </option>
           {classList}
