@@ -1,14 +1,25 @@
+import axios from 'axios';
 import {NextResponse} from 'next/server';
 
 
 export async function POST(request) {
     console.log(request);
-    const data = await request.json();
-    console.log('data: ', data);
+    const form = await request.json();
+    console.log('data: ', form);
 
-    const {nameOfClass, block} = data;
-    console.log(nameOfClass);
+    const {name, block, teacher} = form;
+    console.log(name);
 
-    return NextResponse.json({nameOfClass, block});
+    try {
+        const res = await axios.post(`http://localhost:3001/testUnits`, {name, block, teacher})
+        return new NextResponse(res.status);
+
+    } catch (err) {
+        console.log(err.message);
+        return new NextResponse(err.message);
+    }
+
+
+    // return NextResponse.json({nameOfClass, block});
 
 }

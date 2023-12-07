@@ -5,13 +5,13 @@ import { useState } from "react";
 import axios from 'axios';
 
 const defaultValue = {
-    nameOfClass: '',
+    name: '',
     block: '',
   }
   
   export default function AddClassForm({ teacher }) {
   
-    const [form, setForm] = useState(defaultValue)
+    const [form, setForm] = useState({...defaultValue, teacher: teacher})
     const router = useRouter();
   
     function handleChange(e) {
@@ -27,6 +27,9 @@ const defaultValue = {
       e.preventDefault();
       console.log("handleSubmit called");
       console.log(form);
+      setForm({...form,
+        teacher: teacher,
+      })
       try {
         const response = await axios.post("../api/classrooms", JSON.stringify(form));
         router.push(`/${teacher}`);
@@ -42,8 +45,8 @@ const defaultValue = {
       <>
         <h4 className="form-header">Add Class</h4>
         <form className="add-data-form" onSubmit={handleSubmit}>
-        <label htmlFor="nameOfClass">Class Name</label>
-        <input type="text" id="nameOfClass" name="nameOfClass" onChange={handleChange}/>
+        <label htmlFor="name">Class Name</label>
+        <input type="text" id="name" name="name" onChange={handleChange}/>
         <label htmlFor="block">Block</label>
         <select id="block" name="block" onChange={handleChange}>
           <option value={''}> </option>
