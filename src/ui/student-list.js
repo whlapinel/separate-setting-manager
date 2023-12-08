@@ -9,37 +9,34 @@ export default function StudentList({ unit, teacher }) {
 
   function handleShowDetails(e) {
     const prev = hidden;
-    const modal = document.querySelector('.modal');
-    if ((e.target === modal) && (prev === false)) { // clicked outside modal and modal wasn't hidden
+    const modal = document.querySelector(".modal");
+    if (e.target === modal && prev === false) {
+      // clicked outside modal and modal wasn't hidden
       return setHidden(!prev);
-    } 
-    else {
-    const studentID = e.target.getAttribute("id");
-    setDetails(studentID);
-    setHidden(!prev);
+    } else {
+      const studentID = e.target.getAttribute("id");
+      setDetails(studentID);
+      setHidden(!prev);
     }
   }
 
-  const studentList = unit.students.map((student) => {
+  const studentList = unit.students?.map((student) => {
     return (
-        <p
+      <p
         key={student.id}
-          id={student.id}
-          name={student.name}
-          onClick={handleShowDetails}
-        >
-          {student.name}
-        </p>
+        id={student.id}
+        name={student.name}
+        onClick={handleShowDetails}
+      >
+        {student.name}
+      </p>
     );
   });
 
   return (
     <>
       {studentList}
-      <DetailsModal
-      hidden={hidden}
-      handleShowDetails={handleShowDetails}
-      >
+      <DetailsModal hidden={hidden} handleShowDetails={handleShowDetails}>
         <p>{details}</p>
       </DetailsModal>
     </>

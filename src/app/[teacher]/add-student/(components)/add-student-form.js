@@ -30,7 +30,7 @@ export default function AddStudentForm({ classList, teacher }) {
     console.log(form);
     try {
       const response = await axios.post("../api/students", JSON.stringify(form));
-      router.push("/");
+      router.push(`/${teacher}/my-students`);
     } catch (error) {
       alert(error.response.data);
     }

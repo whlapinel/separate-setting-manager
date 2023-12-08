@@ -1,15 +1,15 @@
 import {NextResponse} from 'next/server';
 import GetTestData from '@/lib/data';
 import axios from 'axios';
+import { revalidatePath } from 'next/cache';
 
 
 export async function POST(request) {
-
-    console.log(request);
+    revalidatePath('/', 'layout');
     const form = await request.json();
-    console.log('data: ', form);
+    console.log('form: ', form);
     const {firstName, lastName, studentClass, teacher} = form;
-    const studentObj = {name: `${firstName} ${lastName}`, }
+    const studentObj = {name: `${firstName} ${lastName}`}
 
     // get old students array for class
     const classes = await GetTestData(teacher);
@@ -20,23 +20,20 @@ export async function POST(request) {
     });
     console.log(chosenClass);
 
-    // create new array with new students added
-    const updatedStudents = [...chosenClass.students,  studentObj];
 
-    console.log('updated students:');
-    console.log(updatedStudents);
-    console.log('updated class:');
-    console.log({...chosenClass, students: updatedStudents});
+    const {id} = chosenClass;
+    let updatedStudents = [];
 
-    const updatedClass = {...chosenClass, students: updatedStudents};
-
-    console.log(JSON.stringify(updatedClass));
-
-    // FIXME this is responding with 404 and I'm not sure why as of 15:38 on 12/7/23
+    if (!chosenClass.students) {
+        updatedStudents = [studentObj];
+    } else {
+        updatedStudents = [...chosenClass.students, studentObj];
+    }
 
     // send patch request to update students property with new array
     try {
-        const res = await axios.patch(`http://localhost:3001/testUnits?teacher=${teacher}&name=${studentClass}`, JSON.stringify(updatedClass));
+        const res = await axios.patch(`http://localhost:3001/testUnits/${id}`, {students: updatedStudents});
+        console.log(res);
         return new NextResponse(res.status);
 
     } catch (err) {

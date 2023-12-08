@@ -17,6 +17,21 @@
         {
           "name": "Harold Green",
           "id": 2
+        },
+        {
+          "name": "TestFirst TestLast"
+        },
+        {
+          "name": "Will Johnson"
+        },
+        {
+          "name": "william caulfield"
+        },
+        {
+          "name": "annie caulfield"
+        },
+        {
+          "name": "Billy  caulfield"
         }
       ],
       "testEvents": [
@@ -29,6 +44,10 @@
           "testName": "Unit 2 Test",
           "testDate": "Fri Nov 10 2023",
           "id": 1
+        },
+        {
+          "testName": "hurdy durdy",
+          "testDate": "2023-12-20T00:00:00.000Z"
         }
       ]
     },
@@ -97,48 +116,93 @@
       ]
     },
     {
-      "nameOfClass": "Econ 101",
+      "name": "Home Insurance",
       "block": "3",
-      "id": 3
+      "teacher": "Peyton Manning",
+      "id": 3,
+      "students": [
+        {
+          "name": "abc def"
+        }
+      ]
     },
     {
-      "nameOfClass": "Econ 101",
-      "block": "3",
+      "name": "Defaults",
+      "block": "2",
+      "teacher": "Gino Brown",
       "id": 4
     },
     {
-      "nameOfClass": "Econ 101",
-      "block": "3",
-      "id": 5
-    },
-    {
-      "nameOfClass": "2AB EES",
-      "block": "2",
-      "id": 6
-    },
-    {
-      "nameOfClass": "3A Math 3",
-      "block": "3",
-      "id": 7
-    },
-    {
-      "nameOfClass": "2AB EES",
-      "block": "2",
-      "id": 8
-    },
-    {
-      "form": {
-        "name": "4B Personal Finance",
-        "block": "4",
-        "teacher": "Peyton Manning"
-      },
-      "id": 9
-    },
-    {
-      "name": "3AB blobbity blob",
+      "name": "Sciencing 101",
       "block": "3",
       "teacher": "Peyton Manning",
-      "id": 10
+      "id": 5,
+      "students": [
+        {
+          "name": "riki tiki tavi"
+        }
+      ],
+      "testEvents": [
+        {
+          "testName": "YONK",
+          "testDate": "Fri Dec 08 2023"
+        }
+      ]
+    },
+    {
+      "name": "how to eat a veggie burger",
+      "block": "3",
+      "teacher": "Peyton Manning",
+      "id": 6,
+      "students": [
+        {
+          "name": "hank biggiers"
+        },
+        {
+          "name": "nimby nomby"
+        },
+        {
+          "name": "crinkle fries"
+        }
+      ],
+      "testEvents": [
+        {
+          "testName": "whattaburger",
+          "testDate": "2023-12-20"
+        },
+        {
+          "testName": "nom nom nom",
+          "testDate": "2023-12-08"
+        },
+        {
+          "testName": "yum yum yum!",
+          "testDate": "Thu Dec 07 2023"
+        },
+        {
+          "testName": "hee hee hee",
+          "testDate": 1702425600000
+        },
+        {
+          "testName": "honky tonk",
+          "testDate": "2023-12-13"
+        },
+        {
+          "testName": "wippy wap",
+          "testDate": "2023-12-08"
+        },
+        {
+          "testName": "wippy WOAH",
+          "testDate": "2023-12-08T05:00:00.000Z"
+        },
+        {
+          "testName": "test event",
+          "testDate": "Fri Dec 08 2023"
+        },
+        {
+          "testName": "test event",
+          "testDate": "Fri Dec 08 2023"
+        }
+      ]
     }
   ]
 }

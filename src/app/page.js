@@ -8,14 +8,20 @@ import { Navigation } from "next/navigation";
 export default async function Home({ params }) {
 
   const testUnits = await GetTestData();
-  const teacherList = testUnits.map((unit) => {
+
+  
+  const testUnitsSet = new Set(testUnits.map((unit) => unit.teacher)); // this is a set of all the teachers
+  console.log(testUnitsSet); 
+  const setToArray = [...testUnitsSet]; // this is an array of all the teachers
+  console.log(setToArray);
+  const teacherList = setToArray.map((teacher) => {
     return (
       <Link
-        href={`/${unit.teacher}`}
-        teacher={unit.teacher}
-        key={unit.teacher}
+        href={`/${teacher}/my-students`}
+        teacher={teacher}
+        key={teacher}
       >
-        {unit.teacher}
+        {teacher}
       </Link>
     );
   });

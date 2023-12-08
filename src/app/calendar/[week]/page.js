@@ -1,16 +1,16 @@
 import GetTestData from "@/lib/data";
 import DailySchedule from "@/ui/daily-schedule";
 import "@/app/globals.css";
-import Link from 'next/link';
-import addDays from 'date-fns/addDays'
+import Link from "next/link";
+import addDays from "date-fns/addDays";
 
-export default async function Calendar({params}) {
+export default async function Calendar({ params }) {
   let week = Number(params.week);
   const testUnits = await GetTestData();
   const today = new Date();
   // console.log(today);
   const thisMonday = findMonday(today);
-  const viewedMonday = addDays(thisMonday, (week * 7));
+  const viewedMonday = addDays(thisMonday, week * 7);
   // console.log(viewedMonday);
 
   function showWeek() {}
@@ -36,21 +36,23 @@ export default async function Calendar({params}) {
     // console.log(`date: ${date.toDateString()}`);
     for (const unit of testUnits) {
       // console.log(`unit teacher: ${unit.teacher}`);
-      for (const testEvent of unit.testEvents) {
-        // console.log(`testEvent: ${testEvent.testDate}`);
-        // console.log(
+      if (unit.testEvents) {
+        for (const testEvent of unit.testEvents) {
+          // console.log(`testEvent: ${testEvent.testDate}`);
+          // console.log(
           // `date comparison: ${testEvent.testDate === date.toDateString()}`
-        // );
-        if (testEvent.testDate === date.toDateString()) {
-          const studentsOnThisDay = {
-            students: unit.students,
-            date: date.toDateString()
-          };
-          studentsByDay = [...studentsByDay, studentsOnThisDay];
-          // console.log(`studentsByDay:`);
-          // console.log(studentsByDay);
+          // );
+          if (testEvent.testDate === date.toDateString()) {
+            const studentsOnThisDay = {
+              students: unit.students,
+              date: date.toDateString()
+            };
+            studentsByDay = [...studentsByDay, studentsOnThisDay];
+            // console.log(`studentsByDay:`);
+            // console.log(studentsByDay);
+          }
         }
-      }
+      } 
     }
   }
 
@@ -86,8 +88,12 @@ export default async function Calendar({params}) {
   return (
     <main>
       <div className="cal-nav-btn-container">
-        <Link className="retreat-week" href={`/calendar/${week - 1}`}>Previous Week</Link>
-        <Link className="advance-week" href={`/calendar/${week + 1}`}>Next Week</Link>
+        <Link className="retreat-week" href={`/calendar/${week - 1}`}>
+          Previous Week
+        </Link>
+        <Link className="advance-week" href={`/calendar/${week + 1}`}>
+          Next Week
+        </Link>
       </div>
       <div className="weekly-container">{dateList2}</div>
     </main>

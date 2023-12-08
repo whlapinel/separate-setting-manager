@@ -1,4 +1,5 @@
 import GetTestData from "@/lib/data";
+import AddTestEventForm from "@/app/[teacher]/add-test-event/(components)/add-test-event-form";
 
 export default async function AddTestEvent({ params }) {
   let { teacher } = params;
@@ -14,14 +15,7 @@ export default async function AddTestEvent({ params }) {
 
   return (
     <>
-      <h4 className="form-header">Add Test Event</h4>
-      <form className="add-data-form">
-        <label for="choose-class-select">Choose Class</label>
-        <select id="choose-class-select">{classList}</select>
-        <label for="choose-class-select">Enter Date</label>
-        <input type="date"/>
-        <button type="submit">Submit</button>
-      </form>
+    <AddTestEventForm teacher={teacher} classList={classList} />
     </>
   );
 }

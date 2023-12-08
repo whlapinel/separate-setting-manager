@@ -11,7 +11,7 @@ const defaultValue = {
   
   export default function AddClassForm({ teacher }) {
   
-    const [form, setForm] = useState({...defaultValue, teacher: teacher})
+    const [form, setForm] = useState({...defaultValue, teacher: teacher, students: [], testEvents: []})
     const router = useRouter();
   
     function handleChange(e) {
@@ -27,12 +27,9 @@ const defaultValue = {
       e.preventDefault();
       console.log("handleSubmit called");
       console.log(form);
-      setForm({...form,
-        teacher: teacher,
-      })
       try {
         const response = await axios.post("../api/classrooms", JSON.stringify(form));
-        router.push(`/${teacher}`);
+        router.push(`/${teacher}/my-students`);
       } catch (error) {
         alert(error.response.data);
       }
