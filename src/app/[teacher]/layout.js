@@ -1,4 +1,4 @@
-import SideNav from "@/ui/side-nav";
+import SideNav from "@/app/(components)/side-nav";
 
 export default function TeacherLayout({ children, params }) {
   let { teacher } = params;

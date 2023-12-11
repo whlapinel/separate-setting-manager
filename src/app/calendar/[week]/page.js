@@ -1,5 +1,5 @@
 import GetTestData from "@/lib/data";
-import DailySchedule from "@/ui/daily-schedule";
+import DailySchedule from "@/app/calendar/(components)/daily-schedule";
 import "@/app/globals.css";
 import Link from "next/link";
 import addDays from "date-fns/addDays";

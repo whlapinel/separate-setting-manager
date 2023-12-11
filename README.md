@@ -1,3 +1,16 @@
+Notes for 12/8/23...
+
+1. Need to add features allowing user to:
+- delete classes, students, and test events from 'my-students' route
+- edit classes, students, and test events from 'my-students' route
+
+2. Need to add authentication and login functionality.
+
+3. Add admin functionality which allows user to:
+- assign test room(s)
+
+4. Add user data structures 
+
 
 The aim of this project is twofold:
 

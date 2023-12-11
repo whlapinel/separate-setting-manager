@@ -7,49 +7,23 @@
       "teacher": "Peyton Manning",
       "students": [
         {
-          "name": "Chad Davis",
-          "id": 0
+          "name": "Will Johnson",
+          "id": 4
         },
         {
-          "name": "Travis White",
-          "id": 1
+          "name": "william caulfield",
+          "id": 5
         },
         {
-          "name": "Harold Green",
-          "id": 2
+          "name": "annie caulfield",
+          "id": 6
         },
         {
-          "name": "TestFirst TestLast"
-        },
-        {
-          "name": "Will Johnson"
-        },
-        {
-          "name": "william caulfield"
-        },
-        {
-          "name": "annie caulfield"
-        },
-        {
-          "name": "Billy  caulfield"
+          "name": "Billy  caulfield",
+          "id": 7
         }
       ],
-      "testEvents": [
-        {
-          "testName": "Unit 1 Test",
-          "testDate": "Wed Nov 08 2023",
-          "id": 0
-        },
-        {
-          "testName": "Unit 2 Test",
-          "testDate": "Fri Nov 10 2023",
-          "id": 1
-        },
-        {
-          "testName": "hurdy durdy",
-          "testDate": "2023-12-20T00:00:00.000Z"
-        }
-      ]
+      "testEvents": []
     },
     {
       "id": 1,
@@ -70,18 +44,10 @@
           "id": 5
         }
       ],
-      "testEvents": [
-        {
-          "testName": "Unit 1 Test",
-          "testDate": "Thu Nov 30 2023",
-          "id": 2
-        },
-        {
-          "testName": "Unit 2 Test",
-          "testDate": "Fri Dec 01 2023",
-          "id": 3
-        }
-      ]
+      "testEvents": [],
+      "data": {
+        "testEvents": []
+      }
     },
     {
       "id": 2,
@@ -124,7 +90,8 @@
         {
           "name": "abc def"
         }
-      ]
+      ],
+      "testEvents": []
     },
     {
       "name": "Defaults",
@@ -142,12 +109,7 @@
           "name": "riki tiki tavi"
         }
       ],
-      "testEvents": [
-        {
-          "testName": "YONK",
-          "testDate": "Fri Dec 08 2023"
-        }
-      ]
+      "testEvents": []
     },
     {
       "name": "how to eat a veggie burger",
@@ -163,46 +125,17 @@
         },
         {
           "name": "crinkle fries"
+        },
+        {
+          "name": "Harry Hankleson",
+          "id": "BFK2xwUEHvcEI_r7vd0Zk"
+        },
+        {
+          "name": "annie Krinkleson",
+          "id": "zfhevXGW8NJnrYEWDkhe5"
         }
       ],
-      "testEvents": [
-        {
-          "testName": "whattaburger",
-          "testDate": "2023-12-20"
-        },
-        {
-          "testName": "nom nom nom",
-          "testDate": "2023-12-08"
-        },
-        {
-          "testName": "yum yum yum!",
-          "testDate": "Thu Dec 07 2023"
-        },
-        {
-          "testName": "hee hee hee",
-          "testDate": 1702425600000
-        },
-        {
-          "testName": "honky tonk",
-          "testDate": "2023-12-13"
-        },
-        {
-          "testName": "wippy wap",
-          "testDate": "2023-12-08"
-        },
-        {
-          "testName": "wippy WOAH",
-          "testDate": "2023-12-08T05:00:00.000Z"
-        },
-        {
-          "testName": "test event",
-          "testDate": "Fri Dec 08 2023"
-        },
-        {
-          "testName": "test event",
-          "testDate": "Fri Dec 08 2023"
-        }
-      ]
+      "testEvents": []
     }
   ]
 }
