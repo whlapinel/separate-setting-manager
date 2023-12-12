@@ -15,6 +15,10 @@ export default function AddStudentForm({ classList, teacher }) {
   const [form, setForm] = useState({...defaultValue, teacher: teacher});
   const router = useRouter();
 
+  function checkForChanges() {
+
+  }
+
   function handleChange(e) {
     console.log(form);
     const { name, value } = e.target;
@@ -28,12 +32,26 @@ export default function AddStudentForm({ classList, teacher }) {
     e.preventDefault();
     console.log("handleSubmit called");
     console.log(form);
+
+    // destructuring form
+    const { firstName, lastName, unitID, teacher } = form;
+
     try {
-      const response = await axios.post("../api/students", JSON.stringify(form));
-      router.push(`/${teacher}/my-students`);
+      const response = await axios.post("../api/students", {firstName, lastName, unitID, teacher});
     } catch (error) {
-      alert(error.response.data);
+      console.log(error);
     }
+    try {
+
+      // make axios GET call to api/revalidate
+      console.log('revalidating...');
+      const res = await axios.get(`../api/revalidate?path=/[teacher]/my-students`);
+      console.log('revalidation complete.');
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("routing user to /${teacher}/my-students");
+    router.push(`/${teacher}/my-students`);
   }
 
   return (
@@ -62,8 +80,8 @@ export default function AddStudentForm({ classList, teacher }) {
         <select
           type="select"
           id="class"
-          name="studentClass"
-          value={form.studentClass}
+          name="unitID"
+          value={form.unitID}
           onChange={handleChange}
           required
         >

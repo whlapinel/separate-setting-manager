@@ -9,7 +9,7 @@ export default async function AddStudent({ params }) {
 
   const classList = testUnits.map((unit) => {
     return (
-      <option value={unit.name} key={unit.name}>
+      <option value={unit.id} key={unit.id}>
         {unit.name}
       </option>
     );

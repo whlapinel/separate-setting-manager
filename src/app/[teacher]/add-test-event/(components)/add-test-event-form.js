@@ -12,7 +12,7 @@ const defaultValue = {
 
 export default function AddTestEventForm({ teacher, classList }) {
   const router = useRouter();
-  const [form, setForm] = useState({ ...defaultValue, teacher: teacher });
+  const [form, setForm] = useState({defaultValue});
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,10 +21,16 @@ export default function AddTestEventForm({ teacher, classList }) {
         "../api/test-events",
         JSON.stringify(form)
       );
-      router.push(`/${teacher}/my-students`);
     } catch (error) {
       alert(error.response.data);
     }
+    try {
+      // make axios GET call to api/revalidate
+      const res = await axios.get(`../api/revalidate?path=/[teacher]/my-students`);
+    } catch (error) {
+      console.log(error);
+    }
+    router.push(`/${teacher}/my-students`);
   }
 
   function handleChange(e) {
@@ -43,7 +49,7 @@ export default function AddTestEventForm({ teacher, classList }) {
         <label htmlFor="choose-class-select">Choose Class</label>
         <select
           id="choose-class-select"
-          name="testClass"
+          name="unitID"
           required
           onChange={handleChange}
         >

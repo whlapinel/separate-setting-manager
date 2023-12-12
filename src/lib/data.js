@@ -1,5 +1,4 @@
 export default async function GetTestData(teacher) {
-  
   try {
     if (!teacher) {
       const res = await fetch(`http://localhost:3001/testUnits`);

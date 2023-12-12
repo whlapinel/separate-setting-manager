@@ -9,7 +9,7 @@ export default async function AddTestEvent({ params }) {
   const classList = testUnits.map((unit) => {
 
     return(
-        <option value={unit.name} key={unit.name}>{unit.name}</option>
+        <option value={unit.id} key={unit.id}>{unit.name}</option>
         );
   });
 

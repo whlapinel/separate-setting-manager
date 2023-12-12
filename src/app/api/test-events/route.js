@@ -5,35 +5,45 @@ import { revalidatePath } from "next/cache";
 import { add } from "date-fns";
 import { nanoid } from "nanoid";
 
-export async function DELETE(request) {
-  const data = await request.json();
-  revalidatePath("/", "layout");
-  console.log("data", data);
-  const { eventID, teacher, unitID } = data;
-  console.log("eventID", eventID);
-  console.log("teacher", teacher);
+export async function GET(request) {
+  const url = request.nextUrl;
+  const searchParams = url.searchParams;
+  console.log("test-events api route: GET");
+  console.log("searchParams", searchParams);
+  console.log("searchParams.get('unitID')", searchParams.get("unitID"));
+  const unitID = searchParams.get("unitID");
   console.log("unitID", unitID);
-  const testUnits = await GetTestData(teacher);
-  const chosenClass = testUnits.find((currClass) => {
-    console.log("currClass.id", currClass.id);
-    console.log("unitID", unitID);
-    console.log(`finding class from test units. current class: ${currClass.name}.  result:`, String(currClass.id) === String(unitID));
-    return String(currClass.id) === String(unitID);
-  });
-  const oldTestEvents = chosenClass?.testEvents;
-  console.log(oldTestEvents);
-  const updatedTestEvents = oldTestEvents.filter((testEvent) => {
-    console.log(testEvent.id !== String(eventID));
-    return testEvent?.id !== String(eventID);
+  const testEventsRes = await axios.get(`http://localhost:3001/testUnits/${unitID}`);
+  const testEvents = testEventsRes.data.testEvents;
+  console.log("testEvents", testEvents);
+  console.log("sending test events to client");
+  return NextResponse.json({ testEvents });
+}
+
+
+export async function DELETE(request) {
+  console.log("test-events api route: DELETE");
+  const data = await request.json();
+  console.log("data", data);
+  const { eventID, unitID } = data;
+  console.log("eventID", eventID);
+  console.log("unitID", unitID);
+  // get test unit from DB using unitID
+  const oldTestEventsRes = await axios.get(`http://localhost:3001/testUnits/${unitID}`);
+  const testClass = oldTestEventsRes.data;
+  console.log("testClass", testClass);
+  const oldTestEvents = oldTestEventsRes.data.testEvents;
+  console.log("oldTestEvents", oldTestEvents);
+
+  // filter out the test event with the matching eventID
+  const updatedTestEvents = oldTestEvents?.filter((testEvent) => {
+    return String(testEvent.id) !== String(eventID);
   });
   console.log("updatedTestEvents", updatedTestEvents);
-  const units = await GetTestData();
-  const index = units.findIndex((currClass) => {
-    return String(currClass.id) === String(unitID);
-  });
-  console.log("index", index);
-  const url = `http://localhost:3001/testUnits/${index}`;
+
+  const url = `http://localhost:3001/testUnits/${unitID}`;
   console.log("url", url);  
+  // send a patch request to update the test events array in the database
   try {
     const data = await axios.patch(url, { testEvents: updatedTestEvents });
     return new NextResponse(data.status);
@@ -44,17 +54,17 @@ export async function DELETE(request) {
 }
 
 export async function PATCH(request) {
-  revalidatePath("/", "layout");
   const form = await request.json();
   console.log("form: ", form);
   // destructure form data
-  let { teacher, testClass, testName, testDate } = form;
+  let { unitID, testName, testDate } = form;
+
   // convert test date to date object
   let testDateObj = new Date(testDate);
   console.log(testDateObj);
   const offset = testDateObj.getTimezoneOffset();
   console.log(offset);
-  testDateObj = testDateObj = add(testDateObj, { minutes: offset });
+  testDateObj = add(testDateObj, { minutes: offset });
   console.log(testDateObj);
   testDate = testDateObj.toDateString();
 
@@ -62,23 +72,24 @@ export async function PATCH(request) {
   const testObj = { testName, testDate, id: nanoid() };
 
   // get class object using class name
-  const classes = await GetTestData(teacher);
-  const chosenClass = classes.find((currClass) => {
-    return currClass.name === testClass;
-  });
-
+  const testEventClassRes = await axios.get(`http://localhost:3001/testUnits/${unitID}`);
+  const testEventClass = testEventClassRes.data;
+  console.log("testEventClass", testEventClass);
   let updatedTestEvents = [];
 
-  // is testevents property null?
-  if (!chosenClass.testEvents) {
+  // if there are no test events, create a new array with the new test event
+  if (!testEventClass.testEvents) {
     updatedTestEvents = [testObj];
+
+    // otherwise, add the new test event to the existing array
   } else {
-    updatedTestEvents = [...chosenClass.testEvents, testObj];
+    updatedTestEvents = [...testEventClass.testEvents, testObj];
   }
 
+// update the database with the new test events array
   try {
     const res = await axios.patch(
-      `http://localhost:3001/testUnits/${chosenClass.id}`,
+      `http://localhost:3001/testUnits/${unitID}`,
       { testEvents: updatedTestEvents }
     );
     console.log(res);

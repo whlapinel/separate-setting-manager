@@ -83,6 +83,10 @@ body {
   justify-content: center;
 }
 
+div.unit-container .btn-container {
+  justify-content: left;
+}
+
 .btn-container button {
   width: 30px;
   background-color:rgb(253, 151, 253);
@@ -211,8 +215,9 @@ footer {
 }
 
 .unit-list {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
 }
 
 .unit-container {

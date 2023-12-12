@@ -28,7 +28,8 @@ const defaultValue = {
       console.log("handleSubmit called");
       console.log(form);
       try {
-        const response = await axios.post("../api/classrooms", JSON.stringify(form));
+        const postResponse = await axios.post("../api/classrooms", JSON.stringify(form));
+        const revalResponse = await axios.get(`../api/revalidate?path=/[teacher]/my-students`);
         router.push(`/${teacher}/my-students`);
       } catch (error) {
         alert(error.response.data);
