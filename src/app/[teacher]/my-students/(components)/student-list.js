@@ -14,6 +14,7 @@ export default function StudentList({ unit, teacher, students }) {
   const [details, setDetails] = useState(null);
   const [deletePending, setDeletePending] = useState(false);
   const [studentList, setStudentList] = useState(students);
+  console.log("rerendering StudentList (client component)");
 
   async function handleDelete(e) {
     console.log("delete clicked");
@@ -21,7 +22,6 @@ export default function StudentList({ unit, teacher, students }) {
     const unitDiv = e.target.closest("div.unit-container");
     const unitID = unitDiv.getAttribute("id");
     const studentID = e.target.parentNode.getAttribute("id");
-    const teacher = e.target.parentNode.getAttribute("teacher");
 
     // send delete request to api
     try {
@@ -33,22 +33,11 @@ export default function StudentList({ unit, teacher, students }) {
       console.log(error);
       alert(error.response?.data);
     }
-    // revalidate data
-    console.log("revalidating...");
-    try {
-      const revalRes = await axios.get(
-        `../api/revalidate?path=/[teacher]/my-students`
-      );
-      console.log('revalidation complete.');
-    } catch (err) {
-      console.log(err);
-    }
-    console.log('fetching student list...');
     try {
       const getDataRes = await axios.get(`../api/students?unitID=${unitID}`);
       const newStudents = getDataRes.data.students;
       setStudentList(newStudents);
-      console.log('new student list: ', newStudents);
+      console.log("new student list: ", newStudents);
       setDeletePending(false);
     } catch (err) {
       console.log(err);
@@ -80,22 +69,18 @@ export default function StudentList({ unit, teacher, students }) {
     studentList.map((student) => {
       return (
         <>
-          <div className="row-container">
+          <div
+            className={
+              deletePending ? "delete-pending row-container" : "row-container"
+            }
+            key={student.id}
+          >
             <Buttons
               handleDelete={handleDelete}
               handleEdit={handleEdit}
               id={student.id}
-              nameOfClass={unit.name}
-              teacher={teacher}
             />
-            <p
-              key={student.name}
-              id={student.id}
-              name={student.name}
-              onClick={handleShowDetails}
-            >
-              {student.name}
-            </p>
+            <p onClick={handleShowDetails}>{student.name}</p>
           </div>
         </>
       );

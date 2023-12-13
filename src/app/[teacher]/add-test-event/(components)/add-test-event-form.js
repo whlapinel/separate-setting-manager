@@ -1,18 +1,22 @@
 "use client";
+
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import Link from "next/link";
 
 const defaultValue = {
   teacher: "",
   testClass: "",
   testName: "",
-  testDate: ""
+  testDate: "",
 };
 
 export default function AddTestEventForm({ teacher, classList }) {
   const router = useRouter();
   const [form, setForm] = useState({defaultValue});
+  const [submitted, setSubmitted] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,13 +28,7 @@ export default function AddTestEventForm({ teacher, classList }) {
     } catch (error) {
       alert(error.response.data);
     }
-    try {
-      // make axios GET call to api/revalidate
-      const res = await axios.get(`../api/revalidate?path=/[teacher]/my-students`);
-    } catch (error) {
-      console.log(error);
-    }
-    router.push(`/${teacher}/my-students`);
+    setSubmitted(true);
   }
 
   function handleChange(e) {
@@ -45,6 +43,7 @@ export default function AddTestEventForm({ teacher, classList }) {
   return (
     <>
       <h4 className="form-header">Add Test Event</h4>
+      <div className="form-container">
       <form className="add-data-form" onSubmit={handleSubmit}>
         <label htmlFor="choose-class-select">Choose Class</label>
         <select
@@ -75,6 +74,9 @@ export default function AddTestEventForm({ teacher, classList }) {
         />
         <button type="submit">Submit</button>
       </form>
+      <p className={submitted?"":"hidden"}>Test Event Created!</p>
+      <Link href={`/${teacher}/my-students`} className={submitted?"nav-btn":"hidden nav-btn"}>Go to "My Students"</Link>
+      </div>
     </>
   );
 }

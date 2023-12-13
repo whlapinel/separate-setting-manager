@@ -4,6 +4,8 @@ import {NextResponse} from 'next/server';
 import {nanoid} from 'nanoid';
 import { NextURL } from 'next/dist/server/web/next-url';
 
+export const revalidate = true;
+
 export async function GET(request) {
   const url = request.nextUrl;
   const searchParams = url.searchParams;

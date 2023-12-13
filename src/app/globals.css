@@ -210,6 +210,18 @@ footer {
   padding: 20px;
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: lightblue;
+  padding: 20px;
+  border-radius: 10px;
+  margin: auto;
+  width: fit-content;
+  text-align: center;
+}
+
 .teacher-dashboard-main {
   width: 100vw;
 }

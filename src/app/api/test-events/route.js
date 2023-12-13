@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { add } from "date-fns";
 import { nanoid } from "nanoid";
 
+export const revalidate = true;
+
 export async function GET(request) {
   const url = request.nextUrl;
   const searchParams = url.searchParams;

@@ -12,6 +12,7 @@ export default function TestEventList({
 }) {
   const [deletePending, setDeletePending] = useState(false);
   const [eventList, setEventList] = useState(testEvents);
+  console.log("rerendering TestEventList (client component)");
 
 
   async function handleDelete(e) {

@@ -4,7 +4,7 @@ import axios from "axios";
 import { revalidatePath } from "next/cache";
 import { nanoid } from "nanoid";
 
-const baseURL = `http://localhost:3001/testUnits`;
+export const revalidate = true;
 
 export async function GET(request) {
   console.log("api/students GET route...");

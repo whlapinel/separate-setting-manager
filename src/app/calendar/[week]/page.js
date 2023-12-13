@@ -3,14 +3,19 @@ import DailySchedule from "@/app/calendar/(components)/daily-schedule";
 import "@/app/globals.css";
 import Link from "next/link";
 import addDays from "date-fns/addDays";
+import axios from "axios";
 
 export default async function Calendar({ params }) {
   let week = Number(params.week);
-  const testUnits = await GetTestData();
+  const testUnitsRes = await axios.get("http://localhost:3001/testUnits");
+  const testUnits = testUnitsRes.data;
+  console.log("testUnits in Calendar() (server component)", testUnits);
   const today = new Date();
-  const thisMonday = findMonday(today);
+  const thisMonday = findMonday(today); 
   const viewedMonday = addDays(thisMonday, week * 7);
   let weekDates = [];
+
+
   for (let i = 0; i < 5; ++i) {
     let date = new Date(viewedMonday);
     date.setDate(viewedMonday.getDate() + i);
@@ -26,6 +31,9 @@ export default async function Calendar({ params }) {
 
   let studentsByDay = [];
 
+  // studentsByDay is an array of object literals "studentsOnThisDay" with 
+  // two properties: students and date.
+
   for (const date of weekDates) {
     for (const unit of testUnits) {
       if (unit.testEvents) {
@@ -36,19 +44,22 @@ export default async function Calendar({ params }) {
               date: date.toDateString()
             };
             studentsByDay = [...studentsByDay, studentsOnThisDay];
+            console.log("studentsByDay", studentsByDay);
           }
         }
       } 
     }
   }
 
+
   const dateList = weekDates.map((date) => {
     let studentsOnThisDay = [];
-    for (const studentArr of studentsByDay) {
-      console.log(studentArr.date);
+    for (const obj of studentsByDay) {
+      console.log(obj.date);
       console.log(date.toDateString());
-      if (studentArr.date === date.toDateString()) {
-        studentsOnThisDay = [...studentsOnThisDay, ...studentArr.students];
+      if (obj.date === date.toDateString()) {
+        studentsOnThisDay = [...studentsOnThisDay, ...obj.students];
+        console.log("in dateList: studentsOnThisDay", studentsOnThisDay);
       }
     }
     return (

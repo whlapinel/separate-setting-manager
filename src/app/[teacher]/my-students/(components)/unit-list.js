@@ -3,12 +3,15 @@
 import axios from "axios";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import UnitContainer from "./unit-container";
 
-export default function UnitList({ testUnits, teacher }) {
+export default function UnitList({ testUnits}) {
   const [unitList, setUnitList] = useState(testUnits);
   const [deletePending, setDeletePending] = useState(false);
+  console.log('rerendering UnitList (client component');
+
 
   async function handleDelete(e) {
     console.log("deleting unit");
@@ -23,16 +26,6 @@ export default function UnitList({ testUnits, teacher }) {
     } catch (error) {
       console.log("error");
       console.log(error);
-    }
-    // revalidate data
-    console.log("revalidating...");
-    try {
-      const revalRes = await axios.get(
-        `../api/revalidate?path=/[teacher]/my-students`
-      );
-      console.log("revalidation complete.");
-    } catch (err) {
-      console.log(err);
     }
     // fetch new data
     console.log("fetching new data...");

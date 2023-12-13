@@ -4,17 +4,32 @@ import TestEventList from "./test-event-list";
 import StudentList from "./student-list";
 import Buttons from "./buttons";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import axios from "axios";
+import { set } from "date-fns";
 
 export default function UnitContainer({ unit, handleDelete, handleEdit }) {
+  const [deletePending, setDeletePending] = useState(false);
   const router = useRouter();
+  console.log("rerendering UnitContainer (client component)");
+
+  async function handleDeleteSelf(e) {
+    handleDelete(e); // parent component's handleDelete function
+    setDeletePending(true); // changes css class to show delete pending
+  }
 
   return (
-    <div className="unit-container" id={unit.id}>
+    <div
+      className={
+        deletePending ? "unit-container delete-pending" : "unit-container"
+      }
+      key={unit.id}
+      id={unit.id}
+    >
       <Buttons
         id={unit.id}
         teacher={unit.teacher}
-        handleDelete={handleDelete}
+        handleDelete={handleDeleteSelf}
         handleEdit={handleEdit}
       />
       <h3>{unit.name}</h3>
