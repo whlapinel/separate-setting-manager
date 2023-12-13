@@ -28,8 +28,16 @@ const defaultValue = {
       console.log("handleSubmit called");
       console.log(form);
       try {
-        const postResponse = await axios.post("../api/classrooms", JSON.stringify(form));
+        console.log("posting...");
+        const postResponse = await axios.post("../api/test-units", JSON.stringify(form));
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        console.log("revalidating...");
         const revalResponse = await axios.get(`../api/revalidate?path=/[teacher]/my-students`);
+        console.log("revalidation complete.");
+        console.log("routing to [teacher]/my-students ...");
         router.push(`/${teacher}/my-students`);
       } catch (error) {
         alert(error.response.data);
