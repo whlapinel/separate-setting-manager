@@ -65,7 +65,7 @@ export default function AddClassForm({ teacher }) {
         <button type="submit">Add Class</button>
       </form>
       <p className={submitted?"":"hidden"}>Class Created!</p>
-      <Link href={`/${teacher}/my-students`} className={submitted?"nav-btn":"hidden nav-btn"}>Go to "My Students"</Link>
+      <Link href={`/${teacher}/my-students?reset=true`} className={submitted?"nav-btn":"hidden nav-btn"}>Go to "My Students"</Link>
       </div>
     </>
   );

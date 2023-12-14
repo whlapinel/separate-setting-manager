@@ -4,13 +4,34 @@ import axios from "axios";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 import UnitContainer from "./unit-container";
+import { set } from "date-fns";
 
 export default function UnitList({ testUnits}) {
   const [unitList, setUnitList] = useState(testUnits);
   const [deletePending, setDeletePending] = useState(false);
   console.log('rerendering UnitList (client component');
+
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+ 
+  useEffect(() => {
+    // reset state if reset searchParam is true
+    console.log('searchParams.get("reset")', searchParams.get("reset"));
+    if (searchParams.get("reset")) {
+      console.log("resetting unitList...");
+      setUnitList(testUnits);
+      console.log("unitList reset to testUnits");
+      console.log('clearing searchParams', searchParams);
+      router.replace(pathname);
+    }
+  }, [pathname, searchParams])
+
 
 
   async function handleDelete(e) {
@@ -19,7 +40,7 @@ export default function UnitList({ testUnits}) {
     console.log("parent", e.target.parentNode);
     console.log("id", e.target.parentNode.getAttribute("id"));
     const id = e.target.parentNode.getAttribute("id");
-    const teacher = e.target.parentNode.getAttribute("teacher");
+    const teacher = e.target.closest("div.unit-container").getAttribute("teacher");
     // send request to delete class
     try {
       const res = await axios.delete(`../api/test-units?id=${id}`);

@@ -18,19 +18,8 @@
       "block": "1",
       "teacher": "Nick Park",
       "id": "hMj77p1-ZTeEZvfzJz5kQ",
-      "students": [
-        {
-          "name": "annie caulfield",
-          "id": "xr_eOfvYvDEIGmq0O-u3S"
-        }
-      ],
-      "testEvents": [
-        {
-          "testName": "hurdy durdy",
-          "testDate": "Thu Dec 14 2023",
-          "id": "rXc6Ko46RlZH3KB6untF2"
-        }
-      ]
+      "students": [],
+      "testEvents": []
     }
   ]
 }

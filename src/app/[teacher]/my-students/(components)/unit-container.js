@@ -25,10 +25,10 @@ export default function UnitContainer({ unit, handleDelete, handleEdit }) {
       }
       key={unit.id}
       id={unit.id}
+      teacher={unit.teacher}
     >
       <Buttons
         id={unit.id}
-        teacher={unit.teacher}
         handleDelete={handleDeleteSelf}
         handleEdit={handleEdit}
       />

@@ -9,7 +9,6 @@ import axios from "axios";
 
 export default async function MyStudents({ searchParams, params }) {
   console.log("rerendering MyStudents (server component)");
-  
   let testUnits = [];
   let { teacher } = params;
   teacher = teacher.replace("%20", " ");

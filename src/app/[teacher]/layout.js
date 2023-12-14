@@ -13,9 +13,6 @@ export default function TeacherLayout({ children, params }) {
         <div className="teacher-dashboard-main">
           <h3 className="main-header">{teacher}</h3>
           {children}
-          <Suspense fallback={null}>
-            <NavigationEvents />
-          </Suspense>
         </div>
       </div>
     </>
