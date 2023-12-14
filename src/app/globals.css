@@ -131,9 +131,7 @@ footer {
   align-items: center;
 }
 
-.hidden {
-  display: none;
-}
+
 
 .modal {
   position: fixed;
@@ -268,4 +266,8 @@ footer {
 .delete-pending {
   background-color: gray;
   color: darkgray;
+}
+
+.hidden {
+  display: none;
 }

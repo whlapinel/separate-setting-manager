@@ -14,7 +14,7 @@ export default async function MyStudents({ searchParams, params }) {
   teacher = teacher.replace("%20", " ");
   // fetch teacherTestUnits from DB
   try {
-    const testUnitsRes = await axios(` http://localhost:3001/testUnits?teacher=${teacher}`, {cache: "no-cache"});
+    const testUnitsRes = await axios(` http://localhost:3001/testUnits?teacher=${teacher}`);
     testUnits = testUnitsRes.data;
     console.log("testUnits", testUnits);
   } catch (err) {

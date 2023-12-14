@@ -44,6 +44,10 @@ export default function AddClassForm({ teacher }) {
     } catch (error) {
       console.log(error);
     }
+    // make fetch call to revalidate data
+    const revalResponse = await fetch(`../api/revalidate?path=../${teacher}`);
+    const revalData = await revalResponse.json();
+    console.log("revalData", revalData);
     setSubmitted(true);
   }
 
