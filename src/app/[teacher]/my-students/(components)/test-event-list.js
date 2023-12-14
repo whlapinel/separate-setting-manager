@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Buttons from "./buttons";
 import axios from "axios";
+import { Fragment } from "react";
 
 export default function TestEventList({
   testEvents,
@@ -13,7 +14,6 @@ export default function TestEventList({
   const [deletePending, setDeletePending] = useState(false);
   const [eventList, setEventList] = useState(testEvents);
   console.log("rerendering TestEventList (client component)");
-
 
   async function handleDelete(e) {
     // set delete pending to true
@@ -71,9 +71,9 @@ export default function TestEventList({
   ) : (
     eventList.map((testEvent) => {
       return (
-        <>
+        <Fragment key={testEvent.id}>
           <div
-            key={testEvent.id}
+            id={testEvent.id}
             className={
               deletePending ? "row-container delete-pending" : "row-container"
             }
@@ -89,7 +89,7 @@ export default function TestEventList({
               <p>{testEvent.testDate}</p>
             </div>
           </div>
-        </>
+        </Fragment>
       );
     })
   );
