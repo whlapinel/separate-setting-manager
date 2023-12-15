@@ -22,42 +22,39 @@
       "testEvents": []
     },
     {
-      "name": "William Henry Lapinel",
-      "block": "4",
-      "teacher": "Nick Park",
-      "id": "2_Ib_YKDev1pCqOpxEScW",
-      "students": [],
-      "testEvents": [
-        {
-          "testName": "hurdy durdy",
-          "testDate": "Wed Dec 20 2023",
-          "id": "ZqD1ihdVixnpZQLobrwn0"
-        }
-      ]
+      "name": "Biology 102",
+      "block": "3",
+      "occurrence": "AB",
+      "teacher": "",
+      "id": 2
     },
     {
-      "name": "Defaults",
-      "block": "2",
-      "teacher": "Nick Park",
-      "id": "WvJyyyO91I1lu-XHFG5ym",
-      "students": [],
-      "testEvents": []
+      "name": "Biology 102",
+      "block": "3",
+      "occurrence": "AB",
+      "teacher": "",
+      "id": 3
     },
     {
-      "name": "Playroom Ceiling",
-      "block": "4",
+      "name": "Test",
+      "block": "1",
+      "occurrence": "AB",
       "teacher": "Nick Park",
-      "id": "MNwNmu8G4nA-jP-Fcqf-j",
-      "students": [],
-      "testEvents": []
+      "id": "QFKIPeg-tYnQr0hO7N5pi"
     },
     {
-      "name": "Real Estate Taxes",
-      "block": "4",
+      "name": "Test 2",
+      "block": "1",
+      "occurrence": "AB",
       "teacher": "Nick Park",
-      "id": "zrR6gyFSGtaRFHtjCyfjs",
-      "students": [],
-      "testEvents": []
+      "id": "Vj6QFwjXU1KTr8c18a9SF"
+    },
+    {
+      "name": "WOW",
+      "block": "1",
+      "occurrence": "AB",
+      "teacher": "Nick Park",
+      "id": "hn0bJNdtzNox28GaPDckQ"
     }
   ]
 }

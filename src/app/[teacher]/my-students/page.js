@@ -1,11 +1,6 @@
-import StudentList from "@/app/[teacher]/my-students/(components)/student-list";
-import GetTestData from "@/lib/data";
-import Buttons from "./(components)/buttons";
 import UnitList from "./(components)/unit-list";
-import { revalidatePath } from "next/cache";
-import Navigation from "next/navigation";
-import { redirect } from "next/navigation";
 import axios from "axios";
+import AddClassForm from "./(components)/add-class-form";
 
 export default async function MyStudents({ searchParams, params }) {
   console.log("rerendering MyStudents (server component)");
@@ -25,6 +20,7 @@ export default async function MyStudents({ searchParams, params }) {
   } else {
     return (
       <>
+      <AddClassForm teacher={teacher}/>
         <UnitList testUnits={testUnits} teacher={teacher}/>
       </>
     );

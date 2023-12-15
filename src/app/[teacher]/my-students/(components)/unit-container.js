@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import { set } from "date-fns";
+import { DeleteClassForm } from "./delete-class-form";
 
 export default function UnitContainer({ unit, handleDelete, handleEdit }) {
   const [deletePending, setDeletePending] = useState(false);
@@ -27,6 +28,7 @@ export default function UnitContainer({ unit, handleDelete, handleEdit }) {
       id={unit.id}
       teacher={unit.teacher}
     >
+      <DeleteClassForm id={unit.id}/>
       <Buttons
         id={unit.id}
         handleDelete={handleDeleteSelf}
