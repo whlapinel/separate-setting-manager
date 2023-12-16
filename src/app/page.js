@@ -1,11 +1,12 @@
 import Image from "next/image";
 import styles from "@/app/globals.css";
 import Link from "next/link";
-import GetTestData from "@/lib/data";
+import GetTestData, { testDB } from "@/lib/data";
 import { Navigation } from "next/navigation";
 
-
 export default async function Home({ params }) {
+
+  await testDB();
 
   const testUnits = await GetTestData();
 
