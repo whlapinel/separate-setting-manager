@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
-import addClassAction from "../(actions)/add-class-action.js";
+import addClassAction from "../(actions)/add-class-action.tsx";
 
 const initialState = {
   nameOfClass: "",

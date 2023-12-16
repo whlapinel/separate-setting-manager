@@ -18,7 +18,7 @@ export default async function Home({ params }) {
   const teacherList = setToArray.map((teacher) => {
     return (
       <Link
-        href={`/${teacher}/my-students`}
+        href={`/${teacher}/my-classes`}
         teacher={teacher}
         key={teacher}
       >
