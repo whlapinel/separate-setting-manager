@@ -4,7 +4,7 @@ import StudentList from "./student-list";
 import { getStudents } from "@/lib/data";
 import { getTestEvents } from "@/lib/data";
 import { testClass, student, testEvent } from "@/lib/definitions";
-import DeleteClassForm from "./delete-class-form";
+import DeleteItemForm from "../(client components)/delete-item-form";
 
 
 export default async function UnitContainer({testClass}: {testClass: testClass}) {
@@ -19,11 +19,10 @@ export default async function UnitContainer({testClass}: {testClass: testClass})
   return (
     <div
       className={"unit-container"}
-      key={testClass.id}
       id={testClass.id}
     >
       <div>
-        <DeleteClassForm id={testClass.id}/>
+        <DeleteItemForm id={testClass.id} tableName={'testClasses'}/>
       <h3>{testClass.name}</h3>
       </div>
       <StudentList

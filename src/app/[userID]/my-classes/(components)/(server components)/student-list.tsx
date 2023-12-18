@@ -1,5 +1,6 @@
 
 import { student } from "@/lib/definitions";
+import DeleteItemForm from "../(client components)/delete-item-form";
 
 export default function StudentList({students}: {students: Array<student>}) {
   console.log("rendering StudentList (server component)");
@@ -14,6 +15,7 @@ export default function StudentList({students}: {students: Array<student>}) {
             className={"row-container"}
             key={student.id}
           >
+            <DeleteItemForm id={student.id} tableName={'students'}/>
             <p>
               <span>{student.firstName}</span>
               <span> </span> 

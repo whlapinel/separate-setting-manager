@@ -1,5 +1,6 @@
 
 import { testEvent } from "@/lib/definitions";
+import DeleteItemForm from "../(client components)/delete-item-form";
 
 export default function TestEventList({testEvents}: {testEvents: Array<testEvent>}) {
   console.log("rendering TestEventList (server component)");
@@ -15,11 +16,14 @@ export default function TestEventList({testEvents}: {testEvents: Array<testEvent
       return (
           <div
             id={testEvent.id}
+            key={testEvent.id}
             className={"row-container"}
           >
+            <DeleteItemForm id={testEvent.id} tableName={'testEvents'}/>
             <div>
-              <p>{testEvent.testName}</p>
-              <p>{testEvent.testDate.toDateString()}</p>
+              <p><span>{testEvent.testName}</span>
+              <span> -- </span>
+              <span>{testEvent.testDate.toDateString()}</span></p>
             </div>
           </div>
       );

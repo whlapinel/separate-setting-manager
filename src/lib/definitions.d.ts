@@ -29,4 +29,6 @@ type testEvent = {
     testDate: Date;
 };
 
-export type { user, testClass, student, testEvent };
+type tableName = 'testClasses' | 'students' | 'testEvents';
+
+export type { user, testClass, student, testEvent, tableName };

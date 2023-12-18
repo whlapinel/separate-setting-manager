@@ -2,24 +2,17 @@ import Link from "next/link";
 import { getUsers } from "@/lib/data";
 import { user } from "@/lib/definitions";
 
-export default async function Home({ params }) {
-  console.log("rerendering Home (server component)");
-  
+export default async function Home() {
+  console.log("rendering Home (server component)");
+
   const users: Array<user> = await getUsers();
   console.log("users", users);
 
-
-  // const testUnits = await GetTestData();
-
-
-
   const userElements = users.map((user) => {
     const userNameString = `${user.firstName} ${user.lastName}`;
-    const slug = userNameString.replace(" ", "-");
-
     return (
       <Link
-        href={`/${slug}/my-classes?teacher=${user.id}`}
+        href={`/${user.id}/my-classes`}
         key={user.id}
       >
         {userNameString}

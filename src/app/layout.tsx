@@ -4,6 +4,7 @@ import Navbar from "./(components)/navbar";
 import Footer from "./(components)/footer";
 import { Suspense } from "react";
 import { NavigationEvents } from "./(components)/navigation-events";
+import SideNav from "./(components)/side-nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
