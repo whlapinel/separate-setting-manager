@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
-import addClassAction from "../(actions)/add-class-action.tsx";
+import addClassAction from "../(actions)/add-class-action";
 
 const initialState = {
   nameOfClass: "",
@@ -21,7 +21,7 @@ function SubmitButton() {
   );
 }
 
-export default function AddClassForm({ teacher }) {
+export default function AddClassForm({ userID }) {
   const [state, formAction] = useFormState(addClassAction, initialState);
   
   return (
@@ -32,7 +32,7 @@ export default function AddClassForm({ teacher }) {
           <div className="input-container">
           <label htmlFor="name">Class Name</label>
           <input type="text" id="name" name="name"/>
-          <input type="hidden" id="teacher" name="teacher" value={teacher} readOnly/>
+          <input type="hidden" id="teacher" name="teacher" value={userID} readOnly/>
           <label htmlFor="block">Block</label>
           <select id="block" name="block" required>
             <option value={""}> </option>

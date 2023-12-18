@@ -1,52 +1,37 @@
-"use client";
 
 import TestEventList from "./test-event-list";
 import StudentList from "./student-list";
-import Buttons from "./buttons";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import axios from "axios";
-import { set } from "date-fns";
-import { DeleteClassForm } from "./delete-class-form";
+import { getStudents } from "@/lib/data";
+import { getTestEvents } from "@/lib/data";
+import { testClass, student, testEvent } from "@/lib/definitions";
+import DeleteClassForm from "./delete-class-form";
 
-export default function UnitContainer({ unit, handleDelete, handleEdit }) {
-  const [deletePending, setDeletePending] = useState(false);
-  const router = useRouter();
-  console.log("rerendering UnitContainer (client component)");
 
-  async function handleDeleteSelf(e) {
-    handleDelete(e); // parent component's handleDelete function
-    setDeletePending(true); // changes css class to show delete pending
-  }
+export default async function UnitContainer({testClass}: {testClass: testClass}) {
+  console.log("rendering UnitContainer (client component)");
+
+  const students: Array<student> = await getStudents(testClass.id);
+  console.log("students", students);
+
+  const testEvents: Array<testEvent> = await getTestEvents(testClass.id);
+  console.log("testEvents", testEvents);
 
   return (
     <div
-      className={
-        deletePending ? "unit-container delete-pending" : "unit-container"
-      }
-      key={unit.id}
-      id={unit.id}
-      teacher={unit.teacher}
+      className={"unit-container"}
+      key={testClass.id}
+      id={testClass.id}
     >
-      <DeleteClassForm id={unit.id}/>
-      <Buttons
-        id={unit.id}
-        handleDelete={handleDeleteSelf}
-        handleEdit={handleEdit}
-      />
-      <h3>{unit.name}</h3>
-      <h4>Block: {unit.block}</h4>
+      <div>
+        <DeleteClassForm id={testClass.id}/>
+      <h3>{testClass.name}</h3>
+      </div>
       <StudentList
-        unit={unit}
-        teacher={unit.teacher}
-        students={unit.students}
+        students={students}
       />
       <h4>Test Events</h4>
       <TestEventList
-        testEvents={unit.testEvents}
-        nameOfClass={unit.name}
-        unitId={unit.id}
-        teacher={unit.teacher}
+        testEvents={testEvents}
       />
     </div>
   );

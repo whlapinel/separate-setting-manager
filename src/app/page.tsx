@@ -1,28 +1,28 @@
 import Link from "next/link";
-import GetTestData, { testDB } from "@/lib/data";
-import { main } from "@/lib/index";
+import { getUsers } from "@/lib/data";
+import { user } from "@/lib/definitions";
 
 export default async function Home({ params }) {
-
-  await testDB();
-  await main();
-
-
-  const testUnits = await GetTestData();
-
+  console.log("rerendering Home (server component)");
   
-  const testUnitsSet = new Set(testUnits.map((unit) => unit.teacher)); // this is a set of all the teachers
-  console.log(testUnitsSet); 
-  const setToArray = [...testUnitsSet]; // this is an array of all the teachers
-  console.log(setToArray);
-  const teacherList = setToArray.map((teacher) => {
+  const users: Array<user> = await getUsers();
+  console.log("users", users);
+
+
+  // const testUnits = await GetTestData();
+
+
+
+  const userElements = users.map((user) => {
+    const userNameString = `${user.firstName} ${user.lastName}`;
+    const slug = userNameString.replace(" ", "-");
+
     return (
       <Link
-        href={`/${teacher}/my-classes`}
-        teacher={teacher}
-        key={teacher}
+        href={`/${slug}/my-classes?teacher=${user.id}`}
+        key={user.id}
       >
-        {teacher}
+        {userNameString}
       </Link>
     );
   });
@@ -32,7 +32,7 @@ export default async function Home({ params }) {
       <h3>
         "Log in" (Select Teacher from list)
       </h3>
-        <div className="teacher-list-container">{teacherList}</div>
+      <div className="teacher-list-container">{userElements}</div>
     </main>
   );
 }

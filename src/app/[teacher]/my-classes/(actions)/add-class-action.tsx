@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { nanoid } from "nanoid";
+import { createClass } from "@/lib/data";
+import { testClass } from "@/lib/definitions";
 
 export default async function addClassAction(prevState, formData) {
   // console.log(prevState);
@@ -11,34 +13,16 @@ export default async function addClassAction(prevState, formData) {
   console.log("prevState", prevState);
   console.log("formData.get('name')", formData.get("name"));
   console.log("formData.get('block')", formData.get("block"));
-
-  const name = formData.get("name");
-  const block = formData.get("block");
-  const occurrence = formData.get("occurrence");
-  const teacher = formData.get("teacher");
-  const id = nanoid();
-
-  // send form to DB
-  try {
-    const res = await fetch("http://localhost:3001/testUnits", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name,
-        block,
-        occurrence,
-        teacher,
-        id
-      })
-    });
-    const data = await res.json();
-    console.log(data);
-    revalidatePath(`/`, "layout");
-    return { message: `${data}` };
-  } catch (err) {
-    console.log(err.message);
-    return { message: `${err.message}` };
-  }
+  console.log("formData.get('occurrence')", formData.get("occurrence"));
+  console.log("formData.get('teacher')", formData.get("teacher"));
+  
+  const newClass: testClass = {
+    id: nanoid(),
+    name: formData.get("name"),
+    block: formData.get("block"),
+    occurrence: formData.get("occurrence"),
+    teacher: formData.get("teacher"),
+  };
+  createClass(newClass);
+  revalidatePath('/[teacher]/my-classes', 'page');
 }

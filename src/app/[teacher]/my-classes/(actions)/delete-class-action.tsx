@@ -1,25 +1,15 @@
 'use server';
 
 import { revalidatePath } from "next/cache";
+import {deleteTestClass} from "@/lib/data";
+import { testClass } from "@/lib/definitions";
+
 
 export async function deleteClassAction(prevState, formData) {
 
-    const id = formData.get("id");
+    const id: testClass['id'] = formData.get("id");
     console.log("id", id);
     // delete class from DB
-    try {
-        const res = await fetch(`http://localhost:3001/testUnits/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
-        const data = await res.json();
-        console.log(data);
-        revalidatePath(`/`, "layout");
-        return { message: `${data}` };
-    } catch (err) {
-        console.log(err.message);
-        return { message: `${err.message}` };
-    }
+    deleteTestClass(id);
+    revalidatePath('/[teacher]/my-classes', 'page');
 }

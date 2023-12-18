@@ -1,53 +1,22 @@
-"use client";
 
-import axios from "axios";
 import UnitContainer from "./unit-container";
+import { testClass } from "@/lib/definitions";
 
 
-export default function UnitList({ testUnits}) {
+export default function UnitList({ testClasses, userID }: { testClasses: Array<testClass>, userID: string}) {
 
-  console.log('rerendering UnitList (client component');
+  console.log('rendering UnitList (client component');
 
-  async function handleDelete(e) {
-    console.log("deleting unit");
-    console.log("target", e.target);
-    console.log("parent", e.target.parentNode);
-    console.log("id", e.target.parentNode.getAttribute("id"));
-    const id = e.target.parentNode.getAttribute("id");
-    const teacher = e.target.closest("div.unit-container").getAttribute("teacher");
-    // send request to delete class
-    try {
-      const res = await axios.delete(`../api/test-units?id=${id}`);
-    } catch (error) {
-      console.log("error");
-      console.log(error);
-    }
-    // fetch new data
-    console.log("fetching new data...");
-    try {
-      const res = await axios.get(`../api/test-units?teacher=${teacher}`);
-      const updatedUnits = res.data;
-      console.log(res.data);
-      console.log("updatedUnits", updatedUnits);
-      setDeletePending(false);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  function handleEdit(e) {
-    console.log("edit");
-  }
-  const unitListElements = testUnits?.map((unit) => {
+  const testClassElements: React.ReactNode = testClasses?.map((testClass: testClass) => {
     return (
-      <UnitContainer unit={unit} key={unit.id} handleDelete={handleDelete} />
+      <UnitContainer testClass={testClass} key={testClass.id}/>
     );
   });
 
   return (
     <>
-      <h4 className="form-header">My Students</h4>
-      <div className="unit-list">{unitListElements}</div>
+      <h4 className="form-header">My Classes</h4>
+      <div className="unit-list">{testClassElements}</div>
     </>
   );
 }
