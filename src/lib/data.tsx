@@ -2,6 +2,52 @@ import { Client } from "pg";
 import { student, testClass, user, testEvent, tableName } from "./definitions";
 import { log } from "console";
 
+export async function createTestEvent(newTestEvent: testEvent): Promise<string> {
+  log("creating test event");
+  const client = new Client();
+  const { id, testName, testDate, testClass } = newTestEvent;
+  let status: string;
+  try {
+    await client.connect();
+    await client.query(
+      `INSERT INTO "testEvents" ("id", "testName", "testDate", "testClass") 
+      VALUES ('${id}', '${testName}', '${testDate}', '${testClass}')`
+    );
+    status = "success";
+  }
+  catch (err) {
+    console.error(err.message);
+    status = err.message;
+  }
+  finally {
+    await client.end();
+    return status;
+  }
+}
+
+export async function editClass(changedClass): Promise<String> {
+  log("editing class");
+  const client = new Client();
+  const { id, name, block, occurrence } = changedClass;
+  let status: string;
+  try {
+    await client.connect();
+    await client.query(
+      `UPDATE "testClasses" SET "name" = '${name}', "block" = '${block}', "occurrence" = '${occurrence}' WHERE "id" = '${id}'`
+    );
+    status = "success";
+  }
+  catch (err) {
+    console.error(err.message);
+    status = err.message;
+  }
+  finally {
+    await client.end();
+    return status;
+  }
+
+}
+
 export async function getUserByID(userID: string): Promise<any> {
   log("getting user");
   const client = new Client();
@@ -43,8 +89,6 @@ export async function getTestClassByID(testClassID: string): Promise<any> {
 
 }
 
-
-
 export async function deleteItem(id: string, tableName: tableName): Promise<void> {
   log(`deleting ${tableName}`);
   const client = new Client();
@@ -63,41 +107,50 @@ export async function deleteItem(id: string, tableName: tableName): Promise<void
   }
 }
 
-export async function createStudent(newStudent: student): Promise<void> {
+export async function createStudent(newStudent: student): Promise<string> {
   log("creating test class");
   const client = new Client();
   const { id, firstName, lastName, testClass } = newStudent;
+  let status: string;
   try {
     await client.connect();
     await client.query(
       `INSERT INTO "students" ("id", "firstName", "lastName", "testClass") 
       VALUES ('${id}', '${firstName}', '${lastName}', '${testClass}')`
     );
+    status = "success";
   }
   catch (err) {
     console.error(err.message);
+    status = err.message;
   }
   finally {
     await client.end();
+    return status;
   }
 }
 
-export async function createClass(newTestClass: testClass): Promise<void> {
+
+export async function createClass(newTestClass: testClass): Promise<string> {
   log("creating test class");
   const client = new Client();
   const { id, name, block, occurrence, teacher } = newTestClass;
+  let status: string;
   try {
     await client.connect();
     await client.query(
       `INSERT INTO "testClasses" ("id", "name", "block", "occurrence", "teacher") 
       VALUES ('${id}', '${name}', '${block}', '${occurrence}', '${teacher}')`
     );
+    status = "Class Added!";
   }
   catch (err) {
     console.error(err.message);
+    status = err.message;
   }
   finally {
     await client.end();
+    return status;
   }
 }
 

@@ -20,6 +20,15 @@ export default async function addStudentAction(prevState, formData) {
     lastName: formData.get("lastName"),
     testClass: formData.get("testClass"),
   };
-  createStudent(newStudent);
-  revalidatePath('/[teacher]/my-classes', 'page');
+  let status: string;
+  try {
+    status = await createStudent(newStudent);
+    revalidatePath('/[teacher]/my-classes', 'page');
+  } catch (error) {
+    status = error.message
+  } finally {
+    return {
+      message: status
+    }
+  }
 }

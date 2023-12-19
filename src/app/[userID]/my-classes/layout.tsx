@@ -14,7 +14,7 @@ export default async function MyClassesLayout({children, params}) {
     return (
         <>
         <div className="teacher-dashboard">
-          <SideNav user={user} params={params} />
+          <SideNav user={user} params={params}/>
           <div className="teacher-dashboard-main">
             {children}
           </div>

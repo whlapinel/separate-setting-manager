@@ -3,6 +3,7 @@
 import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
 import addClassAction from "../../(actions)/add-class-action";
+import Link from "next/link";
 
 const initialState = {
   nameOfClass: "",
@@ -16,7 +17,7 @@ function SubmitButton() {
 
   return (
     <button type="submit" aria-disabled={pending}>
-      Add
+      {pending?'Submitting...':'Submit'}
     </button>
   );
 }
@@ -59,9 +60,14 @@ export default function AddClassForm({ userID }) {
           </fieldset>
           <SubmitButton />
         </form>
+        {state.message?
+        <>
         <p aria-live="polite" className="sr-only" role="status">
-          {state?.message}
+          {state.message}
         </p>
+        <Link href={`/${userID}/my-classes/`}>Return to My Classes</Link>
+        </>
+        :null}
       </div>
     </>
   );

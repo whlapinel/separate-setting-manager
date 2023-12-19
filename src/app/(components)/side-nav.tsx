@@ -7,7 +7,8 @@ export default function SideNav({ user, params }) {
   const { classID } = params;
 
   let options = [
-    { name: 'My Classes', url: `/${user.id}/my-classes/` }
+    { name: 'My Classes', url: `/${user.id}/my-classes/`},
+    { name: 'Add Class', url: `/${user.id}/my-classes/add-class`}
   ];
 
   if (classID) {
@@ -20,7 +21,7 @@ export default function SideNav({ user, params }) {
 
   const optionElements = options.map((option) => {
     return (
-      <Link href={option.url}>{option.name}</Link>
+      <Link href={option.url} key={option.name}>{option.name}</Link>
     )
   })
 

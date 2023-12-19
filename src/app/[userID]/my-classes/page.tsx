@@ -16,7 +16,7 @@ export default async function MyStudents({ params }) {
 
   return (
     <>
-      <UnitList testClasses={testClasses} userID={userID} />
+      <UnitList testClasses={testClasses} params={params}/>
     </>
   );
 }

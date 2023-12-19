@@ -1,11 +1,13 @@
-import AddTestEventForm from "../(components)/add-test-event-form"
+import AddTestEventForm from "../(components)/(client components)/add-test-event-form"
 
 export default function AddTestEvent({params}) {
+  const { userID } = params;
+  const { classID } = params;
 
-    const testClass = params.classID;
+  
   return (
     <div>
-        <AddTestEventForm testClass={testClass}/>
+        <AddTestEventForm classID={classID} userID={userID}/>
     </div>
   )
 }
