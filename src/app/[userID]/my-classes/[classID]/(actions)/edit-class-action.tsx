@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { nanoid } from "nanoid";
 import { editClass } from "@/lib/data";
 
 export default async function editClassAction(prevState, formData) {
@@ -11,17 +10,30 @@ export default async function editClassAction(prevState, formData) {
   console.log("formData", formData);
   console.log("prevState", prevState);
   console.log("");
-  
-  console.log("formData.get('name')", formData.get("name"));
-  console.log("formData.get('block')", formData.get("block"));
-  console.log("formData.get('occurrence')", formData.get("occurrence"));
-  
+
+  const id = formData.get("id");
+  console.log("id", id);
+  const name = formData.get("name");
+  console.log("name", name);
+  const block = formData.get("block");
+  console.log("block", block);
+  const occurrence = formData.get("occurrence");
+
   const changedClass = {
-    id: nanoid(),
+    id: formData.get("id"),
     name: formData.get("name"),
     block: formData.get("block"),
     occurrence: formData.get("occurrence"),
   };
-  editClass(changedClass);
-  revalidatePath('/[teacher]/my-classes', 'page');
+  let status: string = null;
+  try {
+    status = await editClass(changedClass);
+    revalidatePath('/[teacher]/my-classes', 'page');
+  } catch (error) {
+    status = error.message
+  } finally {
+    return {
+      message: status
+    }
+  }
 }

@@ -297,3 +297,20 @@ footer {
 .hide-show-btn:active {
   display: none;
 }
+
+.item-edit-form {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.item-edit-form input {
+  width: 100px;
+}
+
+.navbar-top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}

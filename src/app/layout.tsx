@@ -4,7 +4,9 @@ import Navbar from "./(components)/navbar";
 import Footer from "./(components)/footer";
 import { Suspense } from "react";
 import { NavigationEvents } from "./(components)/navigation-events";
-import SideNav from "./(components)/side-nav";
+import { SessionProvider } from "next-auth/react"
+import type { AppProps } from "next/app"
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,21 +15,25 @@ export const metadata = {
   description: "by Will Lapinel"
 };
 
+
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <header>
-          <Navbar/>
-        </header>
-        <main>{children}</main>
-        <Suspense fallback={null}>
-          <NavigationEvents />
-        </Suspense>
-        <footer>
-          <Footer />
-        </footer>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <header>
+            <Navbar />
+          </header>
+          <main>{children}</main>
+          <Suspense fallback={null}>
+            <NavigationEvents />
+          </Suspense>
+          <footer>
+            <Footer />
+          </footer>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -1,6 +1,31 @@
 import { Client } from "pg";
-import { student, testClass, user, testEvent, tableName } from "./definitions";
+import { student, testClass, user, testEvent, tableName, status } from "./definitions";
 import { log } from "console";
+
+export async function editStudent(changedStudent): Promise<string> {
+  log("editing student");
+  const client = new Client();
+  const { id, firstName, lastName} = changedStudent;
+  console.log('changedStudent', changedStudent);
+  
+  let status: status;
+  try {
+    await client.connect();
+    await client.query(
+      `UPDATE "students" SET "firstName" = '${firstName}', "lastName" = '${lastName}' 
+      WHERE "id" = '${id}'`
+    );
+    status = "success";
+  }
+  catch (err) {
+    status = err.message;
+  }
+  finally {
+    await client.end();
+    console.log('status (logged from editStudent()', status);
+    return status;
+  }
+}
 
 export async function createTestEvent(newTestEvent: testEvent): Promise<string> {
   log("creating test event");
@@ -25,7 +50,7 @@ export async function createTestEvent(newTestEvent: testEvent): Promise<string> 
   }
 }
 
-export async function editClass(changedClass): Promise<String> {
+export async function editClass(changedClass): Promise<string> {
   log("editing class");
   const client = new Client();
   const { id, name, block, occurrence } = changedClass;

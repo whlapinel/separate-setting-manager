@@ -5,13 +5,21 @@ import { log } from "console";
 import { testClass } from "@/lib/definitions";
 import SideNav from "@/app/(components)/side-nav";
 import { get } from "http";
+import {auth, currentUser} from "@clerk/nextjs";
+import checkAuthorization from "@/lib/authorization";
 
-export default async function MyStudents({ params }) {
+export default async function MyClasses({ params }) {
   console.log("rendering MyStudents (server component)");
-
-  const { userID } = params;
-
-  const testClasses: Array<testClass> = await getClasses(userID);
+  
+  const requiredRole = "teacher";
+  // ensure user params matches user id
+  const user = await currentUser();
+  checkAuthorization(user, requiredRole);
+  
+  // get user from database
+  const authorized = await checkAuthorization(user, requiredRole);
+  const {primaryEmailAddressId} = user;
+  const testClasses: Array<testClass> = await getClasses(primaryEmailAddressId);
   console.log("classes", testClasses);
 
   return (

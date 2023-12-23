@@ -1,10 +1,13 @@
 import AddClassForm from "../(components)/(client components)/add-class-form";
+import { currentUser } from "@clerk/nextjs";
 
-export default function AddClass({params}) {
+export default async function AddClass({params}) {
 
-    const {userID} = params;
+  const user = await currentUser();
 
-    console.log('userID', userID);
+  const {primaryEmailAddressId} = user;
+  const userID = primaryEmailAddressId
+
     
   return (
     <div>

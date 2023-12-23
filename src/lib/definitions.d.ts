@@ -2,9 +2,9 @@
 type user = {
     firstName: string;
     lastName: string;
-    email: string;
-    id: string;
-    role: 'teacher' | 'admin';
+    email: string; 
+    id: string; // this should be google's id, not clerk's
+    role: Array<'teacher' | 'admin'>;
 };
 
 type testClass = {
@@ -29,6 +29,8 @@ type testEvent = {
     testDate: Date;
 };
 
+type status = 'success' | 'error';
+
 type tableName = 'testClasses' | 'students' | 'testEvents';
 
-export type { user, testClass, student, testEvent, tableName };
+export type { user, testClass, student, testEvent, tableName, status };
