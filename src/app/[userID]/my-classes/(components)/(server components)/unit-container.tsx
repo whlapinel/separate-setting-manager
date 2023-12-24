@@ -1,6 +1,6 @@
 
 import TestEventList from "./test-event-list";
-import StudentList from "./student-list";
+import StudentList from "../(client components)/student-list";
 import Link from "next/link";
 import { getStudents } from "@/lib/data";
 import { getTestEvents } from "@/lib/data";
@@ -28,15 +28,15 @@ export default async function UnitContainer({ testClass, params }: { testClass: 
     >
       <div>
         <div>
-        <DeleteItemForm id={id} tableName={'testClasses'} />
-    <Link href={`/${userID}/my-classes/${id}/edit-class`}>Edit Class
-        </Link>
+          <DeleteItemForm id={id} tableName={'testClasses'} />
+          <Link href={`/${userID}/my-classes/${id}/edit-class`}>Edit Class
+          </Link>
         </div>
         <h3>{block}{occurrence}{'  '}{name}</h3>
       </div>
       <Link href={`/${userID}/my-classes/${id}/add-student`}>
         Add Student + </Link>
-        <h4>Students</h4>
+      <h4>Students</h4>
       <StudentList
         students={students}
       />

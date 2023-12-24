@@ -2,12 +2,31 @@ import { Client } from "pg";
 import { student, testClass, user, testEvent, tableName, status } from "./definitions";
 import { log } from "console";
 
-export async function editStudent(changedStudent): Promise<string> {
+export async function getPendingApplications(): Promise<any> {
+  log("getting pending applications");
+  const client = new Client();
+  try {
+    await client.connect();
+    const res = await client.query(
+      `SELECT * FROM "users" where "pendingRoles" != '{}'`
+    );
+    const pendingApplications: Array<user> = res.rows;
+    return pendingApplications;
+  }
+  catch (err) {
+    console.error(err.message);
+  }
+  finally {
+    await client.end();
+  }
+}
+
+export async function editStudent(changedStudent: Partial<student>): Promise<string> {
   log("editing student");
   const client = new Client();
-  const { id, firstName, lastName} = changedStudent;
+  const { id, firstName, lastName } = changedStudent;
   console.log('changedStudent', changedStudent);
-  
+
   let status: status;
   try {
     await client.connect();
@@ -50,7 +69,7 @@ export async function createTestEvent(newTestEvent: testEvent): Promise<string> 
   }
 }
 
-export async function editClass(changedClass): Promise<string> {
+export async function editClass(changedClass: Partial<testClass>): Promise<string> {
   log("editing class");
   const client = new Client();
   const { id, name, block, occurrence } = changedClass;
@@ -282,11 +301,19 @@ export async function getUsers(userID?: string): Promise<any> {
   const client = new Client();
   try {
     await client.connect();
-    const res = await client.query(
-      `SELECT * FROM users`
-    );
-    const users: Array<user> = res.rows;
-    return users;
+    if (userID) {
+      const res = await client.query(
+        `SELECT * FROM "users" WHERE "id" = '${userID}'`
+      );
+      const users: Array<user> = res.rows;
+      return users;
+    } else {
+      const res = await client.query(
+        `SELECT * FROM users`
+      );
+      const users: Array<user> = res.rows;
+      return users;
+    }
   }
   catch (err) {
     console.error(err.message);

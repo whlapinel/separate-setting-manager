@@ -1,8 +1,8 @@
 'use client';
 
 import { student } from "@/lib/definitions";
-import DeleteItemForm from "../(client components)/delete-item-form";
-import EditButton from "../(client components)/edit-button";
+import DeleteItemForm from "./delete-item-form";
+import EditButton from "./edit-button";
 import { log } from "console";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";

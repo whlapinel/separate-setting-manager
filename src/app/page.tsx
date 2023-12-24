@@ -1,22 +1,10 @@
 import Link from "next/link";
 import { getUsers } from "@/lib/data";
 import { user } from "@/lib/definitions";
-import checkAuthorization from "@/lib/authorization";
+import ProtectPage from "@/lib/authorization";
 
 export default async function Home() {
   console.log("rendering Home (server component)");
-
-  // 
-
-  
-
-  // look for user in DB
-
-  // if not in DB, create user in DB
-
-  // if in DB, get user from DB
-
-
   const users: Array<user> = await getUsers();
   console.log("users", users);
 

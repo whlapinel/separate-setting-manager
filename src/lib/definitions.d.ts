@@ -1,10 +1,13 @@
 
+type role = 'teacher' | 'admin' | 'user';
+
 type user = {
     firstName: string;
     lastName: string;
     email: string; 
     id: string; // this should be google's id, not clerk's
-    role: Array<'teacher' | 'admin'>;
+    roles: Array<role>;
+    pendingRoles: Array<role>;
 };
 
 type testClass = {
@@ -33,4 +36,4 @@ type status = 'success' | 'error';
 
 type tableName = 'testClasses' | 'students' | 'testEvents';
 
-export type { user, testClass, student, testEvent, tableName, status };
+export type { user, testClass, student, testEvent, tableName, status, role, };

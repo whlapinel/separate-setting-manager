@@ -2,70 +2,73 @@ import { get } from "http";
 import { redirect } from "next/navigation";
 import { user } from "./definitions";
 import { Client } from "pg";
+import { currentUser } from "@clerk/nextjs";
+import { role } from "./definitions";
+import { getUserByID } from "./data";
+import { is } from "date-fns/locale";
 
-export default async function checkAuthorization(loggedInUser: any, requiredRole: string): Promise<void> {
-  console.log("checkAuthorization running...");
+export default async function ProtectPage(loggedInUser: any, requiredRole: role): Promise<boolean> {
+  console.log("ProtectPage running...");
+
+  // BEGIN REFACTORING
   console.log("user", loggedInUser);
-  // log user email address
-  const { emailAddresses } = loggedInUser;
-  const { emailAddress } = emailAddresses[0];
-  console.log("user email", emailAddress);
-  // log user id
-  const { primaryEmailAddressId } = loggedInUser;
 
-  console.log("primaryEmailAddressId", primaryEmailAddressId);
-  // log user's first name
-  const { firstName } = loggedInUser;
-  console.log("user first name", firstName);
-  // log user's last name
-  const { lastName } = loggedInUser;
-  console.log("user last name", lastName);
-  // get domain of email address
+  // a. is user logged in with CMS account?
+  const userID = loggedInUser.primaryEmailAddressId;
+  console.log("primaryEmailAddressId", userID);
   const domain = loggedInUser.emailAddresses[0].emailAddress.split("@")[1];
   console.log("domain", domain);
-  // if domain is not cms.k12.nc.us, redirect to sign-up page
   const isCmsDomain = domain === "cms.k12.nc.us";
   console.log("isCmsDomain", isCmsDomain);
+
+  // a1. if not, return false
   if (!isCmsDomain) {
-    console.log("non-Cms domain, redirecting to sign-up page");
-    redirect('/sign-up');
-  } else {
-    console.log("Cms domain, continuing");
-    // is user in DB?   
+    console.log("non-Cms domain");
+  return false;
+  }
+
+  // b. is user in DB?
+  let dbUser: user = null;
+  if (isCmsDomain) {
+    dbUser = await getUserByID(userID);
+    console.log("dbUser", dbUser);
+  }
+
+  // b1. if not, create user in DB and return false
+  if (isCmsDomain && !dbUser) {
     const client = new Client();
     try {
       await client.connect();
       const res = await client.query(
-        `SELECT * FROM "users" WHERE "id" = '${primaryEmailAddressId}'`
+        `INSERT INTO "users" ("id", "firstName", "lastName", "email", "roles") VALUES ('${userID}', '${loggedInUser.firstName}', '${loggedInUser.lastName}', '${loggedInUser.emailAddresses[0].emailAddress}', '{"user"}')`
       );
       const dbUser = res.rows[0];
       console.log("dbUser", dbUser);
-
-      // if user doesn't exist then create entry in DB and redirect to application page
-      if (dbUser === undefined) {
-        console.log("user not in DB, create account and redirect to application page");
-        const res = await client.query(
-          // enter user into DB
-          `INSERT INTO "users" ("id", "firstName", "lastName", "email") VALUES ('${primaryEmailAddressId}', '${firstName}', '${lastName}', '${emailAddress}') RETURNING *`
-        );
-        redirect('/application');
-      }
-      else {
-        // if user exists, get role from DB
-        const role = dbUser.role;
-        if (role !== requiredRole) {
-          console.log("user is not authorized, redirecting to application page");
-          redirect('/application');
-        } else {
-          console.log("user is authorized, continuing");
-        }
-      }
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err.message);
-    }
-    finally {
+    } finally {
       await client.end();
+      return false;
     }
   }
+
+  // c. does user have required role?
+  let hasRequiredRole: boolean = false;
+  if (isCmsDomain && dbUser) {
+    hasRequiredRole = dbUser.roles.includes(requiredRole);
+  }
+
+  // c1. if not, redirect to application page
+  if (!hasRequiredRole) {
+    console.log("user does not have required role, redirecting to application page");
+    return false;
+  }
+
+  // d. if so, continue to page
+  if (hasRequiredRole) {
+    console.log("user has required role, continuing to page");
+    return true;
+  }
+
+  // END REFACTORING
 }

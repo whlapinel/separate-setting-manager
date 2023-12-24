@@ -7,17 +7,19 @@ import SideNav from "@/app/(components)/side-nav";
 import { get } from "http";
 import {auth, currentUser} from "@clerk/nextjs";
 import checkAuthorization from "@/lib/authorization";
+import { redirect } from "next/navigation";
 
 export default async function MyClasses({ params }) {
   console.log("rendering MyStudents (server component)");
   
-  const requiredRole = "teacher";
-  // ensure user params matches user id
   const user = await currentUser();
-  checkAuthorization(user, requiredRole);
+  const requiredRole = "teacher";
+  const isAuth: boolean = await checkAuthorization(user, requiredRole);
+  if (!isAuth) {    
+    redirect("/not-authorized");
+    return null;
+  }
   
-  // get user from database
-  const authorized = await checkAuthorization(user, requiredRole);
   const {primaryEmailAddressId} = user;
   const testClasses: Array<testClass> = await getClasses(primaryEmailAddressId);
   console.log("classes", testClasses);

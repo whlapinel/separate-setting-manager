@@ -1,3 +1,20 @@
+## 12/23:
+
+Added authentication using Clerk and implemented authorization. Only login method is Google OAuth to keep it simple. Able to login using CMS account, non CMS account is blocked.
+
+### need to:
+
+- Change 'role' column of database to text array (will need to delete all entries)  DONE
+- Refactor the authorization function to separate concerns: one main method to put in each protected page, with sub functions to check if:
+    - a. DONE the user is logged in with a CMS account (true or false), another to 
+    - b. DONE check database for user (true or false), another to check if  
+    - c. DONE the user has the required role (true or false). 
+- Make default value of role 'user' instead of 'teacher' DONE
+- Fix redirect to signup / signin pages
+- Warn user that they cannot delete class when there are students or test events in the class (items must be deleted first)
+- Protect all pages with authorization function. Also need to declare and assign variable requiredRole (string). 
+- Learn how to use sessions (I have no idea what I'm supposed to do with session information)
+
 ## 12/18: 
 
 Tons of progress over the weekend. Switched from json-server to postgreSQL and created a solid and simple schema, rewrote and simplified the code to conform to new schema,  switched everything to server components and implemented server actions. Only client components remaining are the add/delete class forms (need to write the edit forms, and all forms for students and testEvents). "My classes" and calendar appear fully functional with no bugs evident.  Oh, and switched from JS to TS (loving it!!). Freaking awesome.

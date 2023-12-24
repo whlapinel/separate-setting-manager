@@ -5,8 +5,18 @@ import addDays from "date-fns/addDays";
 import { getStudents, getTestEvents } from "@/lib/data";
 import { student } from "@/lib/definitions";
 import { log } from "console";
+import { currentUser } from "@clerk/nextjs";
+import checkAuthorization from "@/lib/authorization";
+import { redirect } from "next/navigation";
 
 export default async function Calendar({ params }) {
+  const user = await currentUser();
+  const requiredRole = "teacher";
+  const isAuth: boolean = await checkAuthorization(user, requiredRole);
+  if (!isAuth) {    
+    redirect("/not-authorized");
+    return null;
+  }
   let week = Number(params.week);
 
   // get testEvents from database

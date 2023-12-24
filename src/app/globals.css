@@ -314,3 +314,25 @@ footer {
   align-items: center;
   padding: 10px;
 }
+
+
+.application-role-list {
+  list-style-type: none;
+}
+
+.application-fieldset {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  text-align: left;
+}
+
+.application-fieldset input[type="radio"] {
+  display: flex;
+  justify-self: left;
+}
+
+.application-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, 400px);
+}
