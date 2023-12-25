@@ -1,19 +1,19 @@
 'use server';
 
-export default async function roleApplicationAction(prevState, formData): Promise<object> {
+import { status } from "@/lib/definitions";
 
-    const { userID } = formData.get("userID");
-    const { role } = formData.get("role");
-    const { firstName } = formData.get("firstName");
-    const { lastName } = formData.get("lastName");
 
-    const client = new Client();
-    
+export default async function sendRoleApplicationAction(prevState, formData): Promise<object> {
+    console.log("sendRoleApplicationAction running...");
+    console.log("formData", formData);
+    const { userID } = formData.get("id");
 
-    const message = {
-        status
-    };
 
-    return message;
+    let status: status;
+
+
+
+
+    return {message: status};
 
 }
