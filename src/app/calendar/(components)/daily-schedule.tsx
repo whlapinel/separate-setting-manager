@@ -48,7 +48,7 @@ export default async function DailySchedule({ date }: { date: Date }) {
   });
 
   return (
-    <div className="daily-container">
+    <div className=" border text-center rounded p-4 min-h-56">
       <h4 className="date-header">{date.toDateString()}</h4>
       <p className='room-header'>Room: {testRoom}</p>
       <ul className="list-container">

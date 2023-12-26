@@ -1,5 +1,4 @@
 import DailySchedule from "@/app/calendar/(components)/daily-schedule";
-import "@/app/globals.css";
 import Link from "next/link";
 import addDays from "date-fns/addDays";
 import { getStudents, getTestEvents } from "@/lib/data";
@@ -57,18 +56,18 @@ const dateList = weekDates.map((date: Date) => {
 
   return (
     <main>
-      <div className="cal-nav-btn-container">
-        <Link className="retreat-week" href={`/calendar/${week - 1}`}>
+      <div className="flex justify-center gap-2">
+        <Link className="border p-1 rounded w-14" href={`/calendar/${week - 1}`}>
           Previous Week
         </Link>
-        <Link className="today-btn" href={`/calendar/0`}>
+        <Link className="border p-1 rounded w-14" href={`/calendar/0`}>
           This Week
         </Link>
-        <Link className="advance-week" href={`/calendar/${week + 1}`}>
+        <Link className="border p-1 rounded w-14" href={`/calendar/${week + 1}`}>
           Next Week
         </Link>
       </div>
-      <div className="weekly-container">{dateList}</div>
+      <div className=" flex justify-center gap-4 p-4">{dateList}</div>
     </main>
   );
 }

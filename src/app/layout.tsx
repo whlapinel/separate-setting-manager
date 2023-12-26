@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { Metadata } from 'next';
 import "./globals.css";
 import Navbar from "./(components)/navbar";
@@ -9,7 +9,7 @@ import { SessionProvider } from "next-auth/react"
 import type { AppProps } from "next/app"
 import { ClerkProvider } from "@clerk/nextjs";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({weight: ["400"], subsets: ["latin"]});
 
 export const metadata: Metadata = {
   title: "Separate Setting Manager",
@@ -20,9 +20,9 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={roboto.className}>
           <header>
-            <Navbar />
+            <Navbar/>
           </header>
           <main>{children}</main>
           <Suspense fallback={null}>

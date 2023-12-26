@@ -1,8 +1,20 @@
+## 12/26:
+
+- Role application input disabled for roles with pending applications
+- Switched to tailwind.css and re-styled some components
+
+### need to:
+
+- Design and implement "admin designation of testing room" functionality including database portion.
+- Continue re-styling components
+- Go through the process of deploying to remote server in order to be able to understand potential future issues
+- Redesign and implement root page
+
 ## 12/25:
 
 Added ability to adjudicate role applications from admin page.
 
-need to: 
+### need to: 
 - DONE Add ability to apply for roles in /[userID]/application.
 - Switch to tailwind css and restyle application
 - learn about catch-all routes, optional routes, route interceptors, route groups, etc.
