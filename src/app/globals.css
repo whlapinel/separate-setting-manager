@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 a {
   color: inherit;
@@ -350,3 +353,4 @@ footer {
   align-items: center;
   gap: 20px;
 }
+

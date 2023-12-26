@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { Metadata } from 'next';
 import "./globals.css";
 import Navbar from "./(components)/navbar";
 import Footer from "./(components)/footer";
@@ -10,7 +11,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Separate Setting Manager",
   description: "by Will Lapinel"
 };
