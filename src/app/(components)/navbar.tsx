@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 
+const userID = "test";
 
 export default function Navbar() {
-
-  
 
   return (
     <>
@@ -15,6 +14,7 @@ export default function Navbar() {
       <div className="navbar-container">
         <Link href="/">Home</Link>
         <Link href={`/calendar/0`}>Calendar</Link>
+        <Link href={`/${userID}/admin`}>Admin</Link>
       </div>
     </>
   );

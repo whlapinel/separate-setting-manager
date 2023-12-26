@@ -31,7 +31,7 @@ export default async function NotAuthorizedPage() {
             </ul>
                 {dbUser?
             <div>
-            <Link href={`./${dbUser.id}/application`}>Welcom, {dbUser.firstName}! Apply for a role</Link>
+            <Link href={`./${dbUser.id}/application`}>Welcome, {dbUser.firstName}! Apply for a role</Link>
             </div>:
             <SignUpButton/>
             }

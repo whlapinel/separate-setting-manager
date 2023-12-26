@@ -61,6 +61,9 @@ const dateList = weekDates.map((date: Date) => {
         <Link className="retreat-week" href={`/calendar/${week - 1}`}>
           Previous Week
         </Link>
+        <Link className="today-btn" href={`/calendar/0`}>
+          This Week
+        </Link>
         <Link className="advance-week" href={`/calendar/${week + 1}`}>
           Next Week
         </Link>

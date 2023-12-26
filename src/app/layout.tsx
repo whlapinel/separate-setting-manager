@@ -15,8 +15,6 @@ export const metadata = {
   description: "by Will Lapinel"
 };
 
-
-
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>

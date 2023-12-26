@@ -3,12 +3,12 @@
 Added ability to adjudicate role applications from admin page.
 
 need to: 
-- Add ability to apply for roles in /[userID]/application.
+- DONE Add ability to apply for roles in /[userID]/application.
 - Switch to tailwind css and restyle application
 - learn about catch-all routes, optional routes, route interceptors, route groups, etc.
 - 
 
-issues: roles and pendingRoles allows duplicate entries. How to prevent duplicate entries?
+issues: (RESOLVED) roles and pendingRoles allows duplicate entries. How to prevent duplicate entries?
 
 ## 12/23:
 

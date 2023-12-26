@@ -8,7 +8,7 @@ export async function getPendingApplications(): Promise<any> {
   try {
     await client.connect();
     const res = await client.query(
-      `SELECT * FROM "users" where "pendingRoles" != '{}'`
+      `SELECT * FROM "users" where "pending_roles" != '{}'`
     );
     const pendingApplications: Array<user> = res.rows;
     return pendingApplications;
