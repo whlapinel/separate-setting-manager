@@ -11,7 +11,7 @@ const initialState = {
     message: null,
 }
 
-export default async function AdjudicationForm({ user }: { user: user }) {
+export default function AdjudicationForm({ user }: { user: user }) {
     const [state, formAction] = useFormState(processApplication, initialState)
 
     const userNameString = `${user.firstName} ${user.lastName}`;

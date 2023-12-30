@@ -1,23 +1,13 @@
 import Link from "next/link";
+import { user } from "@/lib/definitions";
+import type { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-export default function SideNav({ user, params }) {
+export default function SideNav({ user, params, options}: { user: user, params: any, options: Array<{name: string, url: string}> }) {
 
   console.log("params", params);
 
   const { classID } = params;
-
-  let options = [
-    { name: 'My Classes', url: `/${user.id}/my-classes/`},
-    { name: 'Add Class', url: `/${user.id}/my-classes/add-class`}
-  ];
-
-  if (classID) {
-    options = [
-      ...options,
-      { name: 'Add Student', url: `/${user.id}/my-classes/${classID}/add-student`, },
-      { name: 'Add Test Event', url: `/${user.id}/my-classes/${classID}/add-class`, },
-    ]
-  }
+  const { userID } = params;
 
   const optionElements = options.map((option) => {
     return (
@@ -27,7 +17,7 @@ export default function SideNav({ user, params }) {
 
   return (
     <>
-      <div className="side-nav">
+      <div className="flex flex-col p-4 w-fit">
         <p>{user.firstName} {user.lastName}</p>
         {optionElements}
       </div>

@@ -37,10 +37,6 @@ export default async function RoleApplicationPage() {
             console.log(status);
         }
     }
-
-
-
-
     const pendingRoles = await getPendingRoles(userID);
     console.log(pendingRoles);
 

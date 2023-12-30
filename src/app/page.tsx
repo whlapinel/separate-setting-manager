@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getUsers } from "@/lib/data";
 import { user } from "@/lib/definitions";
-import ProtectPage from "@/lib/authorization";
+import checkAuthorization from "@/lib/authorization";
 
 export default async function Home() {
   console.log("rendering Home (server component)");

@@ -1,60 +1,22 @@
 import '@/app/globals.css';
 
 import { getStudents, getTestEvents } from '@/lib/data';
-import { student } from '@/lib/definitions';
+import { roomAssignment, student, studentRoomAssignment } from '@/lib/definitions';
 import { testEvent } from '@/lib/definitions';
 import { testClass } from '@/lib/definitions';
+import RoomAssignmentTable from './room-assignment';
 
-export default async function DailySchedule({ date }: { date: Date }) {
+export default async function DailySchedule({ date, assignments }: { date: Date, assignments: Array<studentRoomAssignment> }) {
 
-  const testRoom = 'placeholder'
-
-  console.log("date", date);
-  
-
-  const testEventsOnThisDay: Array<testEvent> = await getTestEvents(null, date); {
-    console.log("eventsOnThisDay", testEventsOnThisDay);
-  }
-
-  const testClassesOnThisDay: Array<string> = testEventsOnThisDay?.map((testEvent) => {
-    return testEvent.testClass;
-  });
-
-  let studentsOnThisDay: Array<student> = [];
-
-  if (testClassesOnThisDay) {
-
-    for (const testClass of testClassesOnThisDay) {
-      const studentsInThisClass: Array<student> = await getStudents(testClass);
-      studentsOnThisDay = [...studentsOnThisDay, ...studentsInThisClass];
-    }
-    
-    console.log("students", studentsOnThisDay);
-    
-  }
-    const studentElements: React.ReactNode = studentsOnThisDay?.map((student) => {
-      return (
-        <li
-        key={student.id}>
-        <span>
-          {student.firstName}
-        </span>
-        <span> </span>
-        <span>
-          {student.lastName}
-        </span>
-      </li>
-    );
-  });
 
   return (
-    <div className=" border text-center rounded p-4 min-h-56">
-      <h4 className="date-header">{date.toDateString()}</h4>
-      <p className='room-header'>Room: {testRoom}</p>
-      <ul className="list-container">
-        <li className="header-row">Students</li>
-        {studentElements}
-      </ul>
-    </div>
-  );
+    assignments.map((assignment) => {
+
+      return (
+        <div className=' flex flex-col'>
+          <RoomAssignmentTable room={assignment.room} students={assignment.students} key={assignment.room}/>
+        </div>
+      )
+    })
+  )
 }

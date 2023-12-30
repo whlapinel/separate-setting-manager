@@ -6,8 +6,9 @@ import { currentUser } from "@clerk/nextjs";
 import { role } from "./definitions";
 import { getUserByID } from "./data";
 import { is } from "date-fns/locale";
+import { User } from "@clerk/nextjs/dist/types/server";
 
-export default async function ProtectPage(loggedInUser: any, requiredRole: role): Promise<boolean> {
+export default async function checkAuthorization(loggedInUser: User, requiredRole: role): Promise<boolean> {
   console.log("ProtectPage running...");
 
   // BEGIN REFACTORING

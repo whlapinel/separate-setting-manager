@@ -4,6 +4,13 @@ import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
 import addClassAction from "../../(actions)/add-class-action";
 import Link from "next/link";
+import { Input } from "@/ui/input";
+import { Select } from "@/ui/select";
+import { Fieldset } from "@/ui/fieldset";
+import { Legend } from "@/ui/fieldset";
+import { Label } from "@/ui/fieldset";
+import { Radio, RadioGroup } from "@/ui/radio";
+import { SubmitButton } from "@/ui/submit-button";
 
 const initialState = {
   nameOfClass: "",
@@ -12,62 +19,57 @@ const initialState = {
   message: null,
 }
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
 
-  return (
-    <button type="submit" aria-disabled={pending}>
-      {pending?'Submitting...':'Submit'}
-    </button>
-  );
-}
 
 export default function AddClassForm({ userID }) {
   const [state, formAction] = useFormState(addClassAction, initialState);
 
   return (
     <>
-      <div className="form-container">
-        <h4 className="form-header">Add Class</h4>
-        <form className="add-data-form" action={formAction}>
+      <div className="flex flex-col items-center">
+
+        <form className="flex flex-col" action={formAction}>
+          <h4 className=" self-center">Add Class</h4>
           <div className="input-container">
             <label htmlFor="name">Class Name</label>
-            <input type="text" id="name" name="name" />
+            <Input className="" type="text" id="name" name="name" placeholder="e.g. Earth & Environmental Science" />
             <input type="hidden" id="teacher" name="teacher" value={userID} readOnly />
             <label htmlFor="block">Block</label>
-            <select id="block" name="block" required>
+            <Select id="block" name="block" required>
               <option value={""}> </option>
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
               <option value={4}>4</option>
-            </select>
+            </Select>
           </div>
-          <fieldset className="input-container-radio">
-            <legend>Occurrence</legend>
-            <div className="radio-container">
-              <input type="radio" id="A-Day" name="occurrence" value="A" required />
-              <label htmlFor="A-Day">A Day</label>
-            </div>
-            <div className="radio-container">
-              <input type="radio" id="B-Day" name="occurrence" value="B" />
-              <label htmlFor="B-Day">B Day</label>
-            </div>
-            <div className="radio-container">
-              <input type="radio" id="Both" name="occurrence" value="AB" />
-              <label htmlFor="Both">Both</label>
-            </div>
-          </fieldset>
+          <Fieldset className="input-container-radio">
+            <Legend>Occurrence</Legend>
+            <RadioGroup name="occurrence" className="flex flex-col">
+              <div className="flex">
+                <Radio id="A-Day" value="A" />
+                <Label htmlFor="A-Day">A Day</Label>
+              </div>
+              <div className="flex">
+                <Radio id="B-Day" value="B" />
+                <Label htmlFor="B-Day">B Day</Label>
+              </div>
+              <div className="flex">
+                <Radio id="Both" value="AB" defaultChecked />
+                <Label htmlFor="Both">Both</Label>
+              </div>
+            </RadioGroup>
+          </Fieldset>
           <SubmitButton />
         </form>
-        {state.message?
-        <>
-        <p aria-live="polite" className="sr-only" role="status">
-          {state.message}
-        </p>
-        <Link href={`/${userID}/my-classes/`}>Return to My Classes</Link>
-        </>
-        :null}
+        {state.message ?
+          <>
+            <p aria-live="polite" className="sr-only" role="status">
+              {state.message}
+            </p>
+            <Link href={`/${userID}/my-classes/`}>Return to My Classes</Link>
+          </>
+          : null}
       </div>
     </>
   );

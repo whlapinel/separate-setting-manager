@@ -1,7 +1,20 @@
 
-type role = 'teacher' | 'admin' | 'user';
+export type roomAssignment = {
+    roomNumber: string;
+    startDate: Date;
+    endDate: Date;
+    assignmentID: number;
+    desig: 'primary' | 'secondary' | 'tertiary' | '1:1';
+}
 
-type user = {
+export type testRoom = {
+    roomNumber: string;
+    roomDescription: string;
+}
+
+export type role = 'teacher' | 'admin' | 'user';
+
+export type user = {
     firstName: string;
     lastName: string;
     email: string; 
@@ -10,7 +23,7 @@ type user = {
     pendingRoles: Array<role>;
 };
 
-type testClass = {
+export type testClass = {
     name: string;
     id: string;
     block: number;
@@ -18,22 +31,28 @@ type testClass = {
     teacher: user['id'];
 };
 
-type student = {
+export type student = {
     id: string;
     firstName: string;
     lastName: string;
     testClass: testClass['id'];
+    accommodation?: '1:1' | '12 or fewer';
 };
 
-type testEvent = {
+export type testEvent = {
     testName: string;
     id: string;
     testClass: testClass['id'];
     testDate: Date;
 };
 
-type status = 'success' | 'error';
+export type studentRoomAssignment = {
+    room: string,
+    students: Array<student>,
+}
 
-type tableName = 'testClasses' | 'students' | 'testEvents';
+export type assignmentMap = Map<Date, Array<studentRoomAssignment>>
 
-export type { user, testClass, student, testEvent, tableName, status, role, };
+export type status = 'success' | 'error';
+
+export type tableName = 'testClasses' | 'students' | 'testEvents';

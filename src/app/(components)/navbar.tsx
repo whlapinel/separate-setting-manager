@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 
-const userID = "test";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const user = await currentUser();
+  const userID = user?.primaryEmailAddressId;
 
   return (
     <>

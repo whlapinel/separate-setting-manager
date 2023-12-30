@@ -1,3 +1,25 @@
+## 12/29:
+
+- completed form, server actions for adding test room to database. 
+
+- test rooms are now displayed as select box in add test interval form rather than text input. This prevents duplicate entries for the same room number and makes admin user experience a bit better.
+
+- Added admin ability to create test rooms (testRooms) and assign to dates (testIntervals). Data schema seems a bit towards the "unintuitive and unnecessarily confusing" side of things but I haven't been able to think of another way to do it.
+
+- Calendar now reads from testIntervals to find test rooms available for each day. This was probably the most complex and challenging part of the program so far. Probably unnecessarily so, but again a simpler way hasn't hit me yet.
+
+- Purchased Tailwind UI and toyed around with Headless UI and a new Tailwind product called Catalyst. Still a bit confused on the differences and how to use these components but so far, very much worth it, and it seems like this is the ideal, 'state of the art' way to go in terms of composing custom UI.
+
+### need to:
+
+- clear or hide forms on submission (does hiding it clear the form?)
+
+- prevent duplicate entries for admin create test room. (server action should do this)
+
+- Right now the Calendar only finds the first testInterval available. It should get an array of test intervals. So testIntervals.find() needs to be changed to testIntervals.filter() and the map should map an array of testInterval objects to each date instead of a single string. It will pass that array to  DailySchedule, and DailySchedule will then need to use the testInterval.desig property to prioritize as it fills up rooms with students. When a room reaches the maximum of 12, a second room should be added for that day. All of this will be a lot of work.
+
+- Need to add 'accommodation' property to student in type, database and AddStudentForm, etc. This property should accept "12 or less" or "1:1" only.
+
 ## 12/26:
 
 - Role application input disabled for roles with pending applications
@@ -9,6 +31,7 @@
 - Continue re-styling components
 - Go through the process of deploying to remote server in order to be able to understand potential future issues
 - Redesign and implement root page
+- check authorization in layouts rather than every page - this means you need a layout for each role (teacher and admin)
 
 ## 12/25:
 

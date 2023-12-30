@@ -15,7 +15,7 @@ export default function UnitList({ testClasses, params }: { testClasses: Array<t
 
   return (
     <>
-      <h4 className="form-header">My Classes</h4>
+      <h4 className=" text-5xl">My Classes</h4>
       <div className="unit-list">{testClassElements}</div>
     </>
   );
