@@ -16,9 +16,6 @@
 
 - make admin/room-assignments an accordion rather than displaying all at once (too long). Same with /test-rooms
 
-- 
-
-
 
 ## 12/29:
 
@@ -38,7 +35,7 @@
 
 - prevent duplicate entries for admin create test room. (server action should do this)
 
-- Right now the Calendar only finds the first testInterval available. It should get an array of test intervals. So testIntervals.find() needs to be changed to testIntervals.filter() and the map should map an array of testInterval objects to each date instead of a single string. It will pass that array to  DailySchedule, and DailySchedule will then need to use the testInterval.desig property to prioritize as it fills up rooms with students. When a room reaches the maximum of 12, a second room should be added for that day. All of this will be a lot of work.
+- (DONE 12/30) Right now the Calendar only finds the first testInterval available. It should get an array of test intervals. So testIntervals.find() needs to be changed to testIntervals.filter() and the map should map an array of testInterval objects to each date instead of a single string. It will pass that array to  DailySchedule, and DailySchedule will then need to use the testInterval.desig property to prioritize as it fills up rooms with students. When a room reaches the maximum of 12, a second room should be added for that day. All of this will be a lot of work.
 
 - Need to add 'accommodation' property to student in type, database and AddStudentForm, etc. This property should accept "12 or less" or "1:1" only.
 
@@ -49,11 +46,11 @@
 
 ### need to:
 
-- Design and implement "admin designation of testing room" functionality including database portion.
+- DONE Design and implement "admin designation of testing room" functionality including database portion.
 - Continue re-styling components
 - Go through the process of deploying to remote server in order to be able to understand potential future issues
 - Redesign and implement root page
-- check authorization in layouts rather than every page - this means you need a layout for each role (teacher and admin)
+- DONE check authorization in layouts rather than every page - this means you need a layout for each role (teacher and admin)
 
 ## 12/25:
 
@@ -61,9 +58,9 @@ Added ability to adjudicate role applications from admin page.
 
 ### need to: 
 - DONE Add ability to apply for roles in /[userID]/application.
-- Switch to tailwind css and restyle application
+- DONE Switch to tailwind css and restyle application
 - learn about catch-all routes, optional routes, route interceptors, route groups, etc.
-- 
+
 
 issues: (RESOLVED) roles and pendingRoles allows duplicate entries. How to prevent duplicate entries?
 
