@@ -1,3 +1,25 @@
+## 12/30-12/31:
+
+- spent much of 12/30 making it so students are assigned to rooms rather than simply days and making calendar display accordingly.
+
+- on 12/31 I spent a lot of time frustratedly twiddling with the layout.  Moved SideNav to a client component so I could read the path and show options according to the current role. Not sure if this is conventional but it seems reasonably functional.
+
+### need to:
+
+- add 'accommodation' select box to add student form.
+
+- move calendar route to teacher instead of user. Can't have anyone with a CMS domain email address accessing that information (this would include students). All users should be able to do is apply for roles.
+
+- roles homepages should show actions (larger version of options shown on SideNav)
+
+- move [classID] route to parent /view-classes.
+
+- make admin/room-assignments an accordion rather than displaying all at once (too long). Same with /test-rooms
+
+- 
+
+
+
 ## 12/29:
 
 - completed form, server actions for adding test room to database. 

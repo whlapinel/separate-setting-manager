@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
-import addClassAction from "../../(actions)/add-class-action";
+import addClassAction from "../(actions)/add-class-action";
 import Link from "next/link";
 import { Input } from "@/ui/input";
 import { Select } from "@/ui/select";
@@ -19,18 +19,15 @@ const initialState = {
   message: null,
 }
 
-
-
 export default function AddClassForm({ userID }) {
   const [state, formAction] = useFormState(addClassAction, initialState);
 
   return (
     <>
-      <div className="flex flex-col items-center">
-
-        <form className="flex flex-col" action={formAction}>
-          <h4 className=" self-center">Add Class</h4>
-          <div className="input-container">
+      <div className="flex gap-2 flex-col w-72 justify-center">
+        <h4 className="self-center">Add Class</h4>
+        <form className="flex gap-2 flex-col" action={formAction}>
+          <div className="grid gap-1 grid-cols-[1fr_2fr]">
             <label htmlFor="name">Class Name</label>
             <Input className="" type="text" id="name" name="name" placeholder="e.g. Earth & Environmental Science" />
             <input type="hidden" id="teacher" name="teacher" value={userID} readOnly />
@@ -43,24 +40,25 @@ export default function AddClassForm({ userID }) {
               <option value={4}>4</option>
             </Select>
           </div>
-          <Fieldset className="input-container-radio">
+          <Fieldset className="flex flex-col items-center">
             <Legend>Occurrence</Legend>
-            <RadioGroup name="occurrence" className="flex flex-col">
-              <div className="flex">
+            <RadioGroup name="occurrence" className="grid grid-cols-3 gap-4 justify-start items-end">
+              <div>
                 <Radio id="A-Day" value="A" />
-                <Label htmlFor="A-Day">A Day</Label>
+                <Label htmlFor="A-Day" className='m-0'> A Day</Label>
               </div>
-              <div className="flex">
+              <div>
                 <Radio id="B-Day" value="B" />
-                <Label htmlFor="B-Day">B Day</Label>
+                <Label htmlFor="B-Day"> B Day</Label>
               </div>
-              <div className="flex">
+              <div>
                 <Radio id="Both" value="AB" defaultChecked />
-                <Label htmlFor="Both">Both</Label>
+                <Label htmlFor="Both"> Both</Label>
               </div>
+              
             </RadioGroup>
           </Fieldset>
-          <SubmitButton />
+          <SubmitButton className='w-24'/>
         </form>
         {state.message ?
           <>

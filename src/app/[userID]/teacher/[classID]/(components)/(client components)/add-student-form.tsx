@@ -5,6 +5,8 @@ import { useFormStatus } from "react-dom";
 import addStudentAction from "../../(actions)/add-student-action";
 import { student, testClass } from "@/lib/definitions";
 import Link from "next/link";
+import { Input } from "@/ui/input";
+import { SubmitButton } from "@/ui/submit-button";
 
 const initialState = {
   firstName: null,
@@ -12,16 +14,6 @@ const initialState = {
   testClass: null,
   id: null,
   message: null,
-}
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button type="submit" aria-disabled={pending}>
-      Add
-    </button>
-  );
 }
 
 export default function AddStudentForm({ testClass, userID }: { testClass: testClass, userID: string }) {
@@ -39,9 +31,9 @@ export default function AddStudentForm({ testClass, userID }: { testClass: testC
           <div className="input-container">
             <input type="hidden" id="testClass" name="testClass" value={testClass.id} readOnly />
             <label htmlFor="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" />
+            <Input type="text" id="firstName" name="firstName" />
             <label htmlFor="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" />
+            <Input type="text" id="lastName" name="lastName" />
           </div>
           <SubmitButton />
         </form>

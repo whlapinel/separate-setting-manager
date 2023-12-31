@@ -9,14 +9,8 @@ import AdjudicationForm from "./(components)/adjudication-form";
 import processApplication from "./(actions)/process-application"
 
 
-export default async function PendingApplicationsPage() {
-    const user = await currentUser();
-    const requiredRole = "admin";
-    const isAuth: boolean = await checkAuthorization(user, requiredRole);
-    if (!isAuth) {
-        redirect("/not-authorized");
-        return null;
-    }
+export default async function PendingApplicationsPage({params}) {
+    const {userID} = params;
 
 
     const pendingApplications = await getPendingApplications();

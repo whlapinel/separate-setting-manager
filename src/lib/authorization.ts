@@ -8,7 +8,7 @@ import { getUserByID } from "./data";
 import { is } from "date-fns/locale";
 import { User } from "@clerk/nextjs/dist/types/server";
 
-export default async function checkAuthorization(loggedInUser: User, requiredRole: role): Promise<boolean> {
+export default async function checkAuthorization(loggedInUser: User, requiredRole: role, paramsUserID: string): Promise<boolean> {
   console.log("ProtectPage running...");
 
   // BEGIN REFACTORING
@@ -16,6 +16,8 @@ export default async function checkAuthorization(loggedInUser: User, requiredRol
 
   // a. is user logged in with CMS account?
   const userID = loggedInUser.primaryEmailAddressId;
+  console.log("paramsUserID: ", paramsUserID);
+  
   console.log("primaryEmailAddressId", userID);
   const domain = loggedInUser.emailAddresses[0].emailAddress.split("@")[1];
   console.log("domain", domain);
@@ -61,11 +63,18 @@ export default async function checkAuthorization(loggedInUser: User, requiredRol
 
   // c1. if not, redirect to application page
   if (!hasRequiredRole) {
-    console.log("user does not have required role, redirecting to application page");
+    console.log("user does not have required role");
     return false;
   }
 
-  // d. if so, continue to page
+  // d. does auth user id match params user id?
+  if (userID !== paramsUserID) {
+    console.log("user id doesn't match params ID");
+    console.log(userID, paramsUserID);
+    return false;    
+  }
+
+  // e. if so, continue to page
   if (hasRequiredRole) {
     console.log("user has required role, continuing to page");
     return true;

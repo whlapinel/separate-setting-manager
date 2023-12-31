@@ -37,7 +37,7 @@ export default async function TestRoomsPage() {
 
     return (
         <Fragment>
-            <div className="flex flex-col w-screen">
+            <div className="flex flex-col w-5/6">
                 <AddTestingRoomForm testRooms={testRooms} />
                 <TestRoomsTable testRooms={testRooms} />
             </div>

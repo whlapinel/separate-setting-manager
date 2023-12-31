@@ -12,26 +12,14 @@ export default async function AdminLayout({ children, params }) {
     const user: User = await currentUser();
     const dbUser: user = await getUserByID(userID);
     const requiredRole: role = "admin";
-    const isAuth: boolean = await checkAuthorization(user, requiredRole);
-    if (!dbUser || user.primaryEmailAddressId !== userID) {
-        console.log('checking id match');
-        console.log(!dbUser, user.primaryEmailAddressId !== userID);
+    const isAuth: boolean = await checkAuthorization(user, requiredRole, userID);
+    if (!isAuth) {
         redirect("/not-authorized");
     }
 
-    const options = [
-        { name: 'Users', url: `/${userID}/admin/users` },
-        { name: 'Pending Applications', url: `/${userID}/admin/pending-applications` },
-        { name: 'Testing Rooms', url: `/${userID}/admin/testing-rooms` },
-        { name: 'Room Assignments', url: `/${userID}/admin/room-assignments` },
-    ];
-
     return (
         <>
-            <div className="flex">
-                <SideNav user={dbUser} params={params} options={options} />
-                {children}
-            </div>
+        { children }
         </>
     )
 

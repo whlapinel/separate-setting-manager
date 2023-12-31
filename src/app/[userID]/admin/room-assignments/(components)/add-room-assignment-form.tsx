@@ -27,11 +27,14 @@ export default function AddTestIntervalForm({ desig, testRooms }: { desig: roomA
         setIsHidden(!isHidden);
     }
 
+    function handleSubmit(e) {
+        toggleHidden();
+    }
+
     return (
         <form action={formAction}>
             <Button onClick={toggleHidden}>{isHidden?"Add Room Assignment":"Cancel Room Assignment"}</Button>
             <div className='grid grid-cols-4 gap-3 m-1'>
-
                 {!isHidden ?
                     <>
                         <label htmlFor='roomNumber'>Room Number</label>
@@ -47,7 +50,7 @@ export default function AddTestIntervalForm({ desig, testRooms }: { desig: roomA
                         </select>
                         <input type="date" name='startDate' className=' border rounded-lg'/>
                         <input type="date" name='endDate' className=' border rounded-lg'/>
-                        <SubmitButton/>
+                        <SubmitButton />
                         <Input type="hidden" name='desig' value={desig} />
                     </>
                     : null}

@@ -17,7 +17,7 @@ export default async function Navbar() {
       </div>
       <div className=" flex justify-start gap-2 m-4 text-xl">
         <Link href="/">Home</Link>
-        <Link href={`/calendar/0`}>Calendar</Link>
+        <Link href={`/${userID}/calendar/0`}>Calendar</Link>
         <Link href={`/${userID}/admin`}>Admin</Link>
       </div>
     </>

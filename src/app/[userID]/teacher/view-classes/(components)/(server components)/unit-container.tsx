@@ -11,36 +11,35 @@ import DeleteItemForm from "../(client components)/delete-item-form";
 export default async function UnitContainer({ testClass, params }: { testClass: testClass, params: any }) {
   console.log("rendering UnitContainer (client component)");
 
-  const { id, name, block, occurrence, teacher } = testClass;
+  const { id: classID, name, block, occurrence, teacher } = testClass;
 
-  const students: Array<student> = await getStudents(id);
+
+  const students: Array<student> = await getStudents(classID);
   console.log("students", students);
 
-  const testEvents: Array<testEvent> = await getTestEvents(id);
+  const testEvents: Array<testEvent> = await getTestEvents(classID);
   console.log("testEvents", testEvents);
 
   const { userID } = params;
 
   return (
     <div
-      className={"unit-container"}
-      id={testClass.id}
     >
       <div>
         <div>
-          <DeleteItemForm id={id} tableName={'testClasses'} />
-          <Link href={`/${userID}/my-classes/${id}/edit-class`}>Edit Class
+          <DeleteItemForm id={classID} tableName={'testClasses'} />
+          <Link href={`/${userID}/teacher/${classID}/edit-class`}>Edit Class
           </Link>
         </div>
         <h3>{block}{occurrence}{'  '}{name}</h3>
       </div>
-      <Link href={`/${userID}/my-classes/${id}/add-student`}>
+      <Link href={`/${userID}/teacher/${classID}/add-student`}>
         Add Student + </Link>
       <h4>Students</h4>
       <StudentList
         students={students}
       />
-      <Link href={`/${userID}/my-classes/${id}/add-test-event`}>
+      <Link href={`/${userID}/teacher/${classID}/add-test-event`}>
         Add Test Event + </Link>
       <h4>Test Events</h4>
       <TestEventList

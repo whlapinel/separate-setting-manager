@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
 import { editStudent } from "@/lib/data";
-import editStudentAction from "@/app/[userID]/my-classes/[classID]/(actions)/edit-student-action"
+import editStudentAction from "@/app/[userID]/teacher/[classID]/(actions)/edit-student-action"
 
 export default function StudentList({ students }: { students: Array<student> }) {
   const [editingID, setEditingID]: [editingID: string, setEditingID: any] = useState(null);

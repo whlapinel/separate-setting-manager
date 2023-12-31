@@ -1,4 +1,4 @@
-import DailySchedule from "@/app/calendar/(components)/daily-schedule";
+import DailySchedule from "@/app/[userID]/calendar/(components)/daily-schedule";
 import CalNavBtn from "../(components)/cal-nav-btn";
 import addDays from "date-fns/addDays";
 import { getStudents, getTestEvents } from "@/lib/data";
@@ -15,14 +15,9 @@ import type { Interval } from "date-fns"
 import type { assignmentMap, studentRoomAssignment, testEvent } from "@/lib/definitions"
 
 export default async function Calendar({ params }) {
-  const user = await currentUser();
-  const requiredRole = "teacher";
-  const isAuth: boolean = await checkAuthorization(user, requiredRole);
-  if (!isAuth) {
-    redirect("/not-authorized");
-    return null;
-  }
   let week = Number(params.week);
+
+  const {userID} = params;
 
   // get testEvents from database
   const testEvents = await getTestEvents();
@@ -185,9 +180,9 @@ export default async function Calendar({ params }) {
   });
 
   const calNavBtns = [
-    { name: "Previous Week", link: `/calendar/${week - 1}` },
-    { name: "This Week", link: `/calendar/0` },
-    { name: "Next Week", link: `/calendar/${week + 1}` }
+    { name: "Previous Week", link: `/${userID}/calendar/${week - 1}` },
+    { name: "This Week", link: `/${userID}/calendar/0` },
+    { name: "Next Week", link: `/${userID}/calendar/${week + 1}` }
   ].map((btn) => {
     return (
       <CalNavBtn name={btn.name} link={btn.link} key={btn.name} />

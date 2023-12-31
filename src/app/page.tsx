@@ -2,30 +2,34 @@ import Link from "next/link";
 import { getUsers } from "@/lib/data";
 import { user } from "@/lib/definitions";
 import checkAuthorization from "@/lib/authorization";
+import { currentUser } from "@clerk/nextjs";
+import { getUserByID } from "@/lib/data";
 
 export default async function Home() {
   console.log("rendering Home (server component)");
-  const users: Array<user> = await getUsers();
-  console.log("users", users);
+  const user = await currentUser();
+  const userID = user.primaryEmailAddressId;
+  const dbUser = await getUserByID(userID);
 
-  const userElements = users.map((user) => {
-    const userNameString = `${user.firstName} ${user.lastName}`;
+  const roles = dbUser.roles;
+
+  const roleElements = roles.map((role) => {
     return (
-      <Link
-        href={`/${user.id}/my-classes`}
-        key={user.id}
-      >
-        {userNameString}
-      </Link>
+      <ul>
+        <li>
+          <Link href={`/${userID}/${role}`}>{role}</Link>
+        </li>
+      </ul>
     );
+
   });
 
   return (
-    <main>
+    <>
       <h3>
-        "Log in" (Select Teacher from list)
+        Select a role
       </h3>
-      <div className="teacher-list-container">{userElements}</div>
-    </main>
+      {roleElements}
+    </>
   );
 }
