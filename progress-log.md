@@ -1,3 +1,21 @@
+## 1/2: 
+
+- Made a big mistake thinking I'd be able to use Clerk for role management and authorization. Didn't realize it would cost me $100 a month until I had already implemented it in the code. NICE!  But I improved my original authorization code a bit in the process of re-writing it, so there's the bright side.
+
+- Removed [userID] dynamic route segment. Realized it was causing major pain without much benefit, and doesn't seem to be a common pattern. Now teacher and admin are in the root folder.
+
+- Doing a lot of re-work and re-re-work but that's expected at this stage of learning.
+
+## 1/1:
+
+- Happy New Year!
+
+- Moved [classID] to subroute of /view-classes. The idea is that the user should only see a list of classes and can't edit anything without selecting a class first. Each class will be a link. Selecting a class will take you to the [classID] page where other options then become available.
+
+### need to:
+
+- Once I understand intercepted and parallel routes, eventually implement above architecture with view-classes and [classID] being parallel routes. So that when a class is selected, the details and edit functionality shows up as modals rather than separate pages but URL is changed. 
+
 ## 12/30-12/31:
 
 - spent much of 12/30 making it so students are assigned to rooms rather than simply days and making calendar display accordingly.

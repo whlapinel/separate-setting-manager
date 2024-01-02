@@ -13,9 +13,8 @@ export default function SideNav() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = useParams();
-  const {userID} = params;
   const { classID } = params;
-  
+
   useEffect(() => {
     const url = `${pathname}?${searchParams}`
     console.log(url)
@@ -32,41 +31,41 @@ export default function SideNav() {
   type option = {
     name: string,
     url: string,
-}
+  }
 
   const teacherOptions: Array<option> = [
-      { name: 'Teacher Home', url: `/${userID}/teacher/`},
-      { name: 'View Classes', url: `/${userID}/teacher/view-classes`},
-      { name: 'Add Class', url: `/${userID}/teacher/add-class`}
-    ];
-  
-  const adminOptions = [
-      { name: 'Admin Home', url: `/${userID}/admin` },
-      { name: 'Users', url: `/${userID}/admin/users` },
-      { name: 'Pending Applications', url: `/${userID}/admin/pending-applications` },
-      { name: 'Testing Rooms', url: `/${userID}/admin/testing-rooms` },
-      { name: 'Room Assignments', url: `/${userID}/admin/room-assignments` },
+    { name: 'Teacher Home', url: `/teacher/` },
+    { name: 'View Classes', url: `/teacher/view-classes` },
+    { name: 'Add Class', url: `/teacher/add-class` },
+    { name: 'Calendar', url: `/teacher/calendar` },
   ];
 
-  const userOptions = [
-      { name: 'Apply for Role', url: `/${userID}/application` },
-      { name: 'User Home', url: `/${userID}/` },
-      { name: 'Calendar', url: `/${userID}/calendar`},
-  ]
+const adminOptions = [
+  { name: 'Admin Home', url: `/admin` },
+  { name: 'Users', url: `/admin/users` },
+  { name: 'Pending Applications', url: `/admin/pending-applications` },
+  { name: 'Testing Rooms', url: `/admin/testing-rooms` },
+  { name: 'Room Assignments', url: `/admin/room-assignments` },
+];
 
-  console.log("params", params);
+const userOptions = [
+  { name: 'User Home', url: `/` },
+  { name: 'Apply for Role', url: `/apply-for-role` },
+]
 
-  const optionElements = options.map((option) => {
-    return (
-      <Link href={option.url} key={option.name}>{option.name}</Link>
-    )
-  })
+console.log("params", params);
 
+const optionElements = options.map((option) => {
   return (
-    <>
-      <div className="flex flex-col p-4 w-fit">
-        {optionElements}
-      </div>
-    </>
-  );
+    <Link href={option.url} key={option.name}>{option.name}</Link>
+  )
+})
+
+return (
+  <>
+    <div className="flex flex-col p-4 w-fit">
+      {optionElements}
+    </div>
+  </>
+);
 }

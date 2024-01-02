@@ -1,84 +1,31 @@
-import { get } from "http";
-import { redirect } from "next/navigation";
-import { user } from "./definitions";
-import { Client } from "pg";
 import { currentUser } from "@clerk/nextjs";
-import { role } from "./definitions";
 import { getUserByID } from "./data";
-import { is } from "date-fns/locale";
+import { role, user } from "./definitions";
 import { User } from "@clerk/nextjs/dist/types/server";
 
-export default async function checkAuthorization(loggedInUser: User, requiredRole: role, paramsUserID: string): Promise<boolean> {
-  console.log("ProtectPage running...");
+export async function getUserID(): Promise<string> {
+  const userID = (await currentUser()).primaryEmailAddressId;
+  return userID;
+};
 
-  // BEGIN REFACTORING
-  console.log("user", loggedInUser);
+export async function isCmsDomain(): Promise<boolean> {
+  const emailAddress: string = (await currentUser()).emailAddresses[0].emailAddress;
+  return emailAddress.includes("cms.k12.nc.us");
+}
 
-  // a. is user logged in with CMS account?
-  const userID = loggedInUser.primaryEmailAddressId;
-  console.log("paramsUserID: ", paramsUserID);
+
+
+export default async function ProtectPage(requiredRole: role): Promise<boolean> {
+  // is user in database?  if not return false
+  const clerkUser: User = await currentUser();
+  const clerkUserId = clerkUser.primaryEmailAddressId;
+  const dbUser: user = await getUserByID(clerkUserId);
+  if (!dbUser) return false;
   
-  console.log("primaryEmailAddressId", userID);
-  const domain = loggedInUser.emailAddresses[0].emailAddress.split("@")[1];
-  console.log("domain", domain);
-  const isCmsDomain = domain === "cms.k12.nc.us";
-  console.log("isCmsDomain", isCmsDomain);
+  // does user have required role?
+  const userRoles = dbUser.roles;
+  const hasRole: boolean = userRoles.includes(requiredRole);
+  if (!hasRole) return false;
 
-  // a1. if not, return false
-  if (!isCmsDomain) {
-    console.log("non-Cms domain");
-  return false;
-  }
-
-  // b. is user in DB?
-  let dbUser: user = null;
-  if (isCmsDomain) {
-    dbUser = await getUserByID(userID);
-    console.log("dbUser", dbUser);
-  }
-
-  // b1. if not, create user in DB and return false
-  if (isCmsDomain && !dbUser) {
-    const client = new Client();
-    try {
-      await client.connect();
-      const res = await client.query(
-        `INSERT INTO "users" ("id", "firstName", "lastName", "email", "roles") VALUES ('${userID}', '${loggedInUser.firstName}', '${loggedInUser.lastName}', '${loggedInUser.emailAddresses[0].emailAddress}', '{"user"}')`
-      );
-      const dbUser = res.rows[0];
-      console.log("dbUser", dbUser);
-    } catch (err) {
-      console.error(err.message);
-    } finally {
-      await client.end();
-      return false;
-    }
-  }
-
-  // c. does user have required role?
-  let hasRequiredRole: boolean = false;
-  if (isCmsDomain && dbUser) {
-    hasRequiredRole = dbUser.roles.includes(requiredRole);
-  }
-
-  // c1. if not, redirect to application page
-  if (!hasRequiredRole) {
-    console.log("user does not have required role");
-    return false;
-  }
-
-  // d. does auth user id match params user id?
-  if (userID !== paramsUserID) {
-    console.log("user id doesn't match params ID");
-    console.log(userID, paramsUserID);
-    return false;    
-  }
-
-  // e. if so, continue to page
-  if (hasRequiredRole) {
-    console.log("user has required role, continuing to page");
-    return true;
-  }
-
-  // END REFACTORING
+  return true;
 }

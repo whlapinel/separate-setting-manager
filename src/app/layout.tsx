@@ -5,8 +5,6 @@ import Navbar from "./(components)/navbar";
 import Footer from "./(components)/footer";
 import { Suspense } from "react";
 import { NavigationEvents } from "./(components)/navigation-events";
-import { SessionProvider } from "next-auth/react"
-import type { AppProps } from "next/app"
 import { ClerkProvider } from "@clerk/nextjs";
 import SideNav from "./(components)/side-nav";
 
@@ -18,6 +16,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+
   return (
     <ClerkProvider>
       <html lang="en">
@@ -27,10 +27,10 @@ export default function RootLayout({ children }) {
           </header>
           <main className="grid grid-cols-[1fr_4fr] min-h-screen">
             <Suspense fallback={null}>
-            <SideNav/>
+              <SideNav />
             </Suspense>
             <div className="flex flex-col items-center">
-            {children}
+              {children}
             </div>
           </main>
           <Suspense fallback={null}>
