@@ -2,7 +2,7 @@
 
 import { student } from "@/lib/definitions";
 import DeleteItemForm from "./delete-item-form";
-import EditButton from "./edit-button";
+import EditButton from "../../../../../../ui/edit-button";
 import { log } from "console";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";

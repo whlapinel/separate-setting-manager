@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   description: "by Will Lapinel"
 };
 
+const userOptions = [
+  { name: 'User Home', url: `/` },
+  { name: 'Apply for Role', url: `/apply-for-role` },
+]
+
 export default function RootLayout({ children }) {
 
 
@@ -26,12 +31,7 @@ export default function RootLayout({ children }) {
             <Navbar />
           </header>
           <main className="grid grid-cols-[1fr_4fr] min-h-screen">
-            <Suspense fallback={null}>
-              <SideNav />
-            </Suspense>
-            <div className="flex flex-col items-center">
               {children}
-            </div>
           </main>
           <Suspense fallback={null}>
             <NavigationEvents />

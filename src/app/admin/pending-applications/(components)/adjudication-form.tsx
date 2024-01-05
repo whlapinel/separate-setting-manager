@@ -8,7 +8,7 @@ import { useFormState } from "react-dom";
 import { Fragment } from "react";
 
 const initialState = {
-    message: null,
+    message: '',
 }
 
 export default function AdjudicationForm({ user }: { user: user }) {
@@ -36,12 +36,6 @@ export default function AdjudicationForm({ user }: { user: user }) {
                                 </li>
                             </fieldset>
                         <SubmitButton />
-                        {state.message ?
-
-                            <p aria-live="polite" className="sr-only" role="status">
-                                {state.message}
-                            </p> :
-                            null}
                         </form>
                     </Fragment>
                 )

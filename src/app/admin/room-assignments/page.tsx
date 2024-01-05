@@ -64,7 +64,7 @@ export default async function RoomAssignmentsPage() {
     const oneToOneAssignments = roomAssignments.filter((roomAssignment) => roomAssignment.desig === '1:1');
 
     return (
-        <div className="flex flex-col w-screen">
+        <div className="flex flex-col w-5/6">
             <RoomAssignmentsTable desig={'primary'}
                 desigDescription={'Primary testing room for students with "12 or less" accommodation'}
                 intervals={primaryAssignments}

@@ -1,3 +1,11 @@
+## 1/4:
+
+- Yesterday I made some progress with the class details / editing screen.
+
+- Spent way too much time messing with CSS group-hover/{name} and couldn't get it working. Decided to give up and not try to hide buttons with CSS.
+
+- Can now delete student, testEvents from class-details screen.
+
 ## 1/2: 
 
 - Made a big mistake thinking I'd be able to use Clerk for role management and authorization. Didn't realize it would cost me $100 a month until I had already implemented it in the code. NICE!  But I improved my original authorization code a bit in the process of re-writing it, so there's the bright side.

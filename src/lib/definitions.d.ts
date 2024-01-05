@@ -51,6 +51,11 @@ export type studentRoomAssignment = {
     students: Array<student>,
 }
 
+export type option = {
+    name: string,
+    url: string,
+  }
+
 export type assignmentMap = Map<Date, Array<studentRoomAssignment>>
 
 export type status = 'success' | 'error';

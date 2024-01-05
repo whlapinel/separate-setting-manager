@@ -1,4 +1,4 @@
-import DailySchedule from "@/app/[userID]/(privileged)/teacher/calendar/(components)/daily-schedule";
+import DailySchedule from "@/app/teacher/calendar/(components)/daily-schedule";
 import CalNavBtn from "../(components)/cal-nav-btn";
 import addDays from "date-fns/addDays";
 import { getStudents, getTestEvents } from "@/lib/data";
@@ -180,9 +180,9 @@ export default async function Calendar({ params }) {
   });
 
   const calNavBtns = [
-    { name: "Previous Week", link: `/${userID}/calendar/${week - 1}` },
-    { name: "This Week", link: `/${userID}/calendar/0` },
-    { name: "Next Week", link: `/${userID}/calendar/${week + 1}` }
+    { name: "Previous Week", link: `/teacher/calendar/${week - 1}` },
+    { name: "This Week", link: `/teacher/calendar/0` },
+    { name: "Next Week", link: `/teacher/calendar/${week + 1}` }
   ].map((btn) => {
     return (
       <CalNavBtn name={btn.name} link={btn.link} key={btn.name} />

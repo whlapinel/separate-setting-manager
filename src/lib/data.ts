@@ -1,5 +1,5 @@
 import { Client } from "pg";
-import { student, testClass, user, testEvent, tableName, status } from "./definitions";
+import { student, testClass, user, testEvent, tableName, status, role } from "./definitions";
 import { log } from "console";
 
 export async function getPendingApplications(): Promise<any> {
@@ -20,6 +20,56 @@ export async function getPendingApplications(): Promise<any> {
     await client.end();
   }
 }
+
+export async function getRoles(userID: string): Promise<Array<role>> {
+  const client = new Client();
+  let status: status;
+  try {
+
+      await client.connect();
+
+      const res = await client.query(
+          `SELECT roles FROM users WHERE id = '${userID}'`,
+      );
+      console.log(res.rows[0]);
+      status = "success";
+      return res.rows[0].roles;
+  } catch (err) {
+      console.log(err);
+      status = "error";
+  }
+  finally {
+      await client.end();
+      console.log(status);
+  }
+}
+
+
+
+
+export async function getPendingRoles(userID: string): Promise<Array<string>> {
+  const client = new Client();
+  let status: status;
+  try {
+
+      await client.connect();
+
+      const res = await client.query(
+          `SELECT pending_roles FROM users WHERE id = '${userID}'`,
+      );
+      console.log(res.rows[0]);
+      status = "success";
+      return res.rows[0].pending_roles;
+  } catch (err) {
+      console.log(err);
+      status = "error";
+  }
+  finally {
+      await client.end();
+      console.log(status);
+  }
+}
+
 
 export async function editStudent(changedStudent: Partial<student>): Promise<string> {
   log("editing student");

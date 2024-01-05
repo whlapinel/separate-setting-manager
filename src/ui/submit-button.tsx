@@ -2,7 +2,7 @@ import { useFormStatus } from "react-dom";
 import { Button } from "@/ui/button";
 import clsx from "clsx";
 
-export function SubmitButton({className}: {className?: string}) {
+export function SubmitButton({className, children}: {className?: string, children?: React.ReactNode}) {
   const { pending } = useFormStatus();
 
   return (

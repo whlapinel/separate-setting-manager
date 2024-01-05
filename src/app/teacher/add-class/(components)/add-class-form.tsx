@@ -65,7 +65,7 @@ export default function AddClassForm({ userID }) {
             <p aria-live="polite" className="sr-only" role="status">
               {state.message}
             </p>
-            <Link href={`/${userID}/my-classes/`}>Return to My Classes</Link>
+            <Link href={`/teacher/view-classes/`}>Return to View Classes</Link>
           </>
           : null}
       </div>

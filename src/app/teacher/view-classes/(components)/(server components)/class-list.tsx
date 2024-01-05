@@ -20,7 +20,7 @@ export default async function ClassList({ userID }: { userID: string }) {
         const testEvents: Array<testEvent> = await getTestEvents(classID);
         console.log("testEvents", testEvents);
         const nextTestEvent: testEvent = testEvents[0];
-        const nextTestDate: string = nextTestEvent.testDate.toDateString();
+        const nextTestDate: string = nextTestEvent? nextTestEvent.testDate.toDateString() : "no tests scheduled";
         return nextTestDate;
     }
 
@@ -55,7 +55,7 @@ export default async function ClassList({ userID }: { userID: string }) {
                                 <Link href={testClass.href} className="font-medium text-gray-900 hover:text-gray-600">
                                     {testClass.name}
                                 </Link>
-                                <p className="text-gray-500">{testClass.studentCount} student {(testClass.studentCount > 1)?'s':null}</p>
+                                <p className="text-gray-500">{testClass.studentCount} student{(testClass.studentCount !== 1)?'s':null}</p>
                                 <p className="text-gray-500">Next Test: {testClass.nextTestDate}</p>
                             </div>
                         </div>
