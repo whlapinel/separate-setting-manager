@@ -53,7 +53,7 @@ export default function ClassContainer({ testClass, students, testEvents }: { te
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <div className='flex gap-2 justify-between'>
                             <dt className="text-sm font-medium leading-6 text-gray-900">Students</dt>
-                            <Button color='blue'>+</Button>
+                            <Button color='blue' className={'h-8'}>+</Button>
                         </div>
                         <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                             <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
