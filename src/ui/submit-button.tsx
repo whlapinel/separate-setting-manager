@@ -1,8 +1,9 @@
 import { useFormStatus } from "react-dom";
 import { Button } from "@/ui/button";
 import clsx from "clsx";
+import { MouseEventHandler } from "react";
 
-export function SubmitButton({className, children}: {className?: string, children?: React.ReactNode}) {
+export function SubmitButton({className, children }: {className?: string, children?: React.ReactNode }) {
   const { pending } = useFormStatus();
 
   return (

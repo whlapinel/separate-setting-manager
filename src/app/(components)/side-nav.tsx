@@ -4,7 +4,7 @@ import type { option } from "@/lib/definitions";
 
 
 
-export default function SideNav({options}: {options: Array<option>}) {
+export default function SideNav({options, userName}: {options: Array<option>, userName: string}) {
 
 const optionElements = options.map((option) => {
   return (
@@ -15,6 +15,7 @@ const optionElements = options.map((option) => {
 return (
   <>
     <div className="flex flex-col p-4 w-fit">
+      <h3 className="text-xl font-bold">{userName}</h3>
       {optionElements}
     </div>
   </>

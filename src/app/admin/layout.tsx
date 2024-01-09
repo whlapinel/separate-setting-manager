@@ -1,20 +1,15 @@
 
 import ProtectPage from "@/lib/authorization";
+import { getUserName } from "@/lib/authorization";
 import { redirect } from "next/navigation";
 import SideNav from "../(components)/side-nav";
-
-const adminOptions = [
-    { name: 'Admin Home', url: `/admin` },
-    { name: 'Users', url: `/admin/users` },
-    { name: 'Pending Applications', url: `/admin/pending-applications` },
-    { name: 'Testing Rooms', url: `/admin/testing-rooms` },
-    { name: 'Room Assignments', url: `/admin/room-assignments` },
-];
+import { adminOptions } from "./options"
 
 
 export default async function AdminLayout({ children }) {
 
     const isAuth: boolean = await ProtectPage("admin");
+    const userName = await getUserName();
 
     if (!isAuth) {
         redirect("/not-authorized");
@@ -22,10 +17,9 @@ export default async function AdminLayout({ children }) {
 
     // otherwise render children
 
-
     return (
         <>
-            <SideNav options={adminOptions} />
+            <SideNav options={adminOptions} userName={userName}/>
             <div className="flex flex-col items-center">
                 {children}
             </div>

@@ -5,13 +5,11 @@ import { redirect } from "next/navigation";
 
 export default async function AddTestEvent({params}) {
 
-  const { userID } = params;
   const { classID } = params;
 
-  
   return (
     <div>
-        <AddTestEventForm classID={classID} userID={userID}/>
+        <AddTestEventForm classID={classID} />
     </div>
   )
 }

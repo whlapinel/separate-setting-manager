@@ -60,4 +60,4 @@ export type assignmentMap = Map<Date, Array<studentRoomAssignment>>
 
 export type status = 'success' | 'error';
 
-export type tableName = 'testClasses' | 'students' | 'testEvents';
+export type tableName = 'testClasses' | 'students' | 'testEvents' | 'roomAssignments' | 'testRooms';

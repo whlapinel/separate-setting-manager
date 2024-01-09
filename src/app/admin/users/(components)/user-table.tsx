@@ -1,11 +1,28 @@
+'use client';
+
 import type { user } from "@/lib/definitions"
+import EditButton from "@/ui/edit-button";
+import FormContainer from "@/ui/form-container";
+import { Input } from "@/ui/input";
+import { useState } from "react";
+import EditUserRolesForm from "./edit-user-roles-form";
 
-const people = [
-    { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-    // More people...
-]
+export default function UserTable({userID, users}: {userID: string, users: Array<user>}) {
+    const [editingRolesID, setEditingRolesID] = useState(null);
 
-export default function UserTable({users}: {users: Array<user>}) {
+    console.log(userID);
+    console.log(users[0].id);   
+
+    function handleEdit(e) {
+        const clickedUserID = e.target.closest("button").id;
+        console.log(clickedUserID);
+        if (editingRolesID === clickedUserID) {
+            setEditingRolesID(null);
+        } else {
+            setEditingRolesID(clickedUserID);
+        }        
+    }
+
     return (
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
@@ -46,6 +63,7 @@ export default function UserTable({users}: {users: Array<user>}) {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {users.map((user) => (
+                                    
                                     <tr key={user.id}>
                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                             {user.firstName}
@@ -53,18 +71,26 @@ export default function UserTable({users}: {users: Array<user>}) {
                                             {user.lastName}
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.email}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        {
+                                            editingRolesID === user.id ?
+                                            <FormContainer title={`Edit User Roles for ${user.firstName} ${user.lastName}`} setIsAdding={setEditingRolesID}>
+                                                <EditUserRolesForm userID={user.id} roles={user.roles}/>
+                                            </FormContainer>
+                                            : null}
+                                            {
                                         user.roles.map((role) => {
                                             return `${role}, ` 
                                         })
                                         }</td>
                                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                            <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                Edit<span className="sr-only">, {user.id}</span>
-                                            </a>
+                                            <EditButton id={`${user.id}`} tableName="users" handleEdit={handleEdit} disabled={user.id === userID}/>
+                                            
                                         </td>
                                     </tr>
+                                    
                                 ))}
+                                
                             </tbody>
                         </table>
                     </div>

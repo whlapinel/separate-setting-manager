@@ -8,15 +8,20 @@ import RoomAssignmentTable from './room-assignment';
 
 export default async function DailySchedule({ date, assignments }: { date: Date, assignments: Array<studentRoomAssignment> }) {
 
+  const dateHeader = <h3>{date.toDateString()}</h3>
+
+  const roomAssignments = assignments.map((assignment) => {
+    return (
+      <div className=' flex flex-col' key={assignment.room}>
+        <RoomAssignmentTable room={assignment.room} students={assignment.students}/>
+      </div>
+    )
+  })
 
   return (
-    assignments.map((assignment) => {
-
-      return (
-        <div className=' flex flex-col'>
-          <RoomAssignmentTable room={assignment.room} students={assignment.students} key={assignment.room}/>
-        </div>
-      )
-    })
+    <>
+      {dateHeader}
+      {roomAssignments}
+    </>
   )
 }

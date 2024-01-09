@@ -3,11 +3,14 @@ import { Redirect } from "next";
 import { redirect } from "next/navigation";
 import SideNav from "../(components)/side-nav";
 import type { option } from "@/lib/definitions";
+import { getUserName } from "@/lib/authorization";
 
 export default async function TeacherLayout({ children }) {
 
 
   const isAuth: boolean = await ProtectPage("teacher");
+  const userName = await getUserName();
+
 
   if (!isAuth) {
     redirect("/not-authorized");
@@ -24,11 +27,10 @@ export default async function TeacherLayout({ children }) {
 
   return (
     <>
-      <SideNav options={teacherOptions} />
+      <SideNav options={teacherOptions} userName={userName}/>
       <div className="flex flex-col items-center">
         {children}
       </div>
-
     </>
   )
 }

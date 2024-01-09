@@ -1,3 +1,21 @@
+## 1/9:
+
+- Might be the last big commit for a while, since classes are starting tomorrow and I'm taking 9 credits. Can hopefully find time to work on this but should probably try to make some good notes for future self assuming I'll forget everything.
+
+- Might try to deploy today to see if I can get things working depending on prices.
+
+- Things feel like they are coming together. Admin and Teacher essential functionality is mostly there, but lots to do remaining especially in the 'edit' category.  
+
+## 1/6:
+
+- Another failed attempt to implement parallel routes and route interception. Need to thoroughly play around with an example before I waste time trying this again. REALLY want to make everything possible a server component and show forms in modals through route interception rather than doing it with traditional client-side state management, but don't want to get bogged down with this so I'm just going with doing it the way I know for now.
+
+- Implemented showing AddClassForm in the modal, same as yesterday, but have an issue with performance. Not very snappy.
+
+## 1/5: 
+
+- Continued building UI in class details (ClassContainer.tsx). Implemented showing and hiding AddStudentForm and AddTestForm within modal. 
+
 ## 1/4:
 
 - Yesterday I made some progress with the class details / editing screen.

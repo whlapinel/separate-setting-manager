@@ -12,8 +12,10 @@ export default async function Navbar() {
           <UserButton />
         </div>
       </div>
-      <div className=" flex justify-start gap-2 m-4 text-xl">
+      <div className=" flex justify-start gap-5 m-4 text-xl">
         <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="/apply-for-role">Apply For Role</Link>
         <Link href="/admin">Admin</Link>
         <Link href="/teacher">Teacher</Link>
         <Link href="/sign-in">Sign In</Link>

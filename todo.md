@@ -1,3 +1,21 @@
+## 1/6/24
+
+- Deploy!
+
+- use Tailwind Merge so you can apply dynamic classes.
+
+- Build home page (public)
+
+- Build about page (public)
+
+- Build apply for role (must be private to cms domain google accounts)
+
+- Change layout of admin components to match theme and UI of teacher components.
+
+- implement delete class functionality from /view-classes page.
+
+- improve layout of calendar page
+
 ## 1/4/24
 
 - DONE 1/4/24. Make SideNav a server component (again). Put in admin/layout and teacher/layout and pass options as props.
@@ -6,7 +24,7 @@
 
 - Implement edit functionality for testClass, Students and TestEvents.
 
-- Implement add functionality for students and testEvents.
+- DONE 1/5: Implement add functionality for students and testEvents.
 
 - Delete old components once fully replaced (refer to old ones when building replacements!)
 

@@ -15,11 +15,6 @@ export const metadata: Metadata = {
   description: "by Will Lapinel"
 };
 
-const userOptions = [
-  { name: 'User Home', url: `/` },
-  { name: 'Apply for Role', url: `/apply-for-role` },
-]
-
 export default function RootLayout({ children }) {
 
 

@@ -1,14 +1,27 @@
 'use client';
 
-import { Client } from "pg";
 import { roomAssignment } from "@/lib/definitions";
 import { Button } from "@/ui/button";
-import { useState } from "react";
-import { Input } from "@/ui/input";
 import AddTestIntervalForm from "./add-room-assignment-form";
+import AddItemButton from "@/ui/add-item-button";
+import FormContainer from "@/ui/form-container";
+import { useState } from "react";
 
-export default async function RoomAssignmentsTable({ desig, desigDescription, intervals, testRooms }) {
+export default function RoomAssignmentsTable({ desig, roomAssignments, testRooms }) {
+    const [isAdding, setIsAdding] = useState(false);
 
+    const descriptions = {
+        primary: 'Primary Test Interval',
+        secondary: 'Secondary Test Interval',
+        tertiary: 'Tertiary Test Interval',
+        'one-to-one': '1:1 Test Interval',
+    }
+
+    function handleClickAdd() {
+        console.log('add clicked');
+        setIsAdding(!isAdding);
+        console.log(isAdding);   
+    }
 
     return (
         <div className="px-4 sm:px-6 lg:px-8 my-8" >
@@ -16,7 +29,7 @@ export default async function RoomAssignmentsTable({ desig, desigDescription, in
                 <div className="sm:flex-auto">
                     <h1 className="text-base font-semibold leading-6 text-gray-900">{desig}</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        {desigDescription}
+                        {descriptions[desig]}
                     </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -42,13 +55,13 @@ export default async function RoomAssignmentsTable({ desig, desigDescription, in
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
-                                {intervals.map((interval: roomAssignment) => (
-                                    <tr key={interval.endDate.toDateString()}>
+                                {roomAssignments?.map((assignment: roomAssignment) => (
+                                    <tr key={assignment.endDate.toDateString()}>
                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                                            {interval.roomNumber}
+                                            {assignment.roomNumber}
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{interval.startDate.toDateString()}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{interval.endDate.toDateString()}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{assignment.startDate.toDateString()}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{assignment.endDate.toDateString()}</td>
                                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <Button>
                                                 Edit
@@ -58,7 +71,12 @@ export default async function RoomAssignmentsTable({ desig, desigDescription, in
                                 ))}
                             </tbody>
                         </table>
-                        <AddTestIntervalForm desig={desig} testRooms={testRooms}/>
+                        <AddItemButton name="roomAssignments" handleClickAdd={handleClickAdd} />
+                        { isAdding? 
+                        <FormContainer title='Add Room Assignment' setIsAdding={setIsAdding}>
+                            <AddTestIntervalForm desig={desig} testRooms={testRooms} />
+                        </FormContainer>
+                        : null }
                     </div>
                 </div>
             </div>

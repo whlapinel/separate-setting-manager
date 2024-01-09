@@ -13,7 +13,12 @@ export async function isCmsDomain(): Promise<boolean> {
   return emailAddress.includes("cms.k12.nc.us");
 }
 
-
+export async function getUserName(): Promise<string> {
+  const firstName = (await currentUser()).firstName;
+  const lastName = (await currentUser()).lastName;
+  const userName = `${firstName} ${lastName}`;
+  return userName;
+};
 
 export default async function ProtectPage(requiredRole: role): Promise<boolean> {
   // is user in database?  if not return false

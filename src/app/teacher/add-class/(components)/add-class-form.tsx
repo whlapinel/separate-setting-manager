@@ -25,7 +25,6 @@ export default function AddClassForm({ userID }) {
   return (
     <>
       <div className="flex gap-2 flex-col w-72 justify-center">
-        <h4 className="self-center">Add Class</h4>
         <form className="flex gap-2 flex-col" action={formAction}>
           <div className="grid gap-1 grid-cols-[1fr_2fr]">
             <label htmlFor="name">Class Name</label>
@@ -40,32 +39,28 @@ export default function AddClassForm({ userID }) {
               <option value={4}>4</option>
             </Select>
           </div>
-          <Fieldset className="flex flex-col items-center">
-            <Legend>Occurrence</Legend>
-            <RadioGroup name="occurrence" className="grid grid-cols-3 gap-4 justify-start items-end">
-              <div>
-                <Radio id="A-Day" value="A" />
-                <Label htmlFor="A-Day" className='m-0'> A Day</Label>
-              </div>
-              <div>
-                <Radio id="B-Day" value="B" />
-                <Label htmlFor="B-Day"> B Day</Label>
-              </div>
-              <div>
-                <Radio id="Both" value="AB" defaultChecked />
-                <Label htmlFor="Both"> Both</Label>
-              </div>
-              
-            </RadioGroup>
-          </Fieldset>
-          <SubmitButton className='w-24'/>
+          <h3>Occurrence</h3>
+          <RadioGroup name="occurrence" className="grid grid-cols-3 gap-4 justify-start items-end my-0">
+            <div>
+              <Radio id="A-Day" value="A" />
+              <Label htmlFor="A-Day" className='m-0'> A Day</Label>
+            </div>
+            <div>
+              <Radio id="B-Day" value="B" />
+              <Label htmlFor="B-Day"> B Day</Label>
+            </div>
+            <div>
+              <Radio id="Both" value="AB" defaultChecked />
+              <Label htmlFor="Both"> Both</Label>
+            </div>
+          </RadioGroup>
+          <SubmitButton className='w-24' />
         </form>
         {state.message ?
           <>
             <p aria-live="polite" className="sr-only" role="status">
               {state.message}
             </p>
-            <Link href={`/teacher/view-classes/`}>Return to View Classes</Link>
           </>
           : null}
       </div>
