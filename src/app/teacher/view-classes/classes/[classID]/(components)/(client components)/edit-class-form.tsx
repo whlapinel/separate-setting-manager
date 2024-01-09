@@ -3,7 +3,7 @@
 import { useFormState } from "react-dom";
 import { useFormStatus } from "react-dom";
 import { useState } from "react";
-import editClassAction from "../../../../@details/classes/[classID]/(actions)/edit-class-action";
+import editClassAction from "@/app/teacher/view-classes/classes/[classID]/(actions)/edit-class-action";
 
 function SubmitButton() {
   const { pending } = useFormStatus();

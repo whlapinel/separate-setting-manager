@@ -14,8 +14,10 @@ export async function isCmsDomain(): Promise<boolean> {
 }
 
 export async function getUserName(): Promise<string> {
-  const firstName = (await currentUser()).firstName;
-  const lastName = (await currentUser()).lastName;
+  const user = await currentUser();
+  if (!user) return "";
+  const firstName = user.firstName;
+  const lastName = user.lastName;
   const userName = `${firstName} ${lastName}`;
   return userName;
 };
