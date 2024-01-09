@@ -15,8 +15,8 @@ export default async function RoleApplicationForm({ userID, pendingRoles, roles 
 
     const availRoles: Array<role> = ['teacher', 'admin'];
     const roleElements: React.ReactNode = availRoles.map((role: string) => {
-        const hasRole = roles.includes(role);
-        const alreadyApplied = pendingRoles.includes(role);
+        const hasRole = roles?.includes(role);
+        const alreadyApplied = pendingRoles?.includes(role);
         let msg: string;
         if (hasRole) {
             msg = "You already have this role."
