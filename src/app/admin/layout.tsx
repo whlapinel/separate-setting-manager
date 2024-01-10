@@ -10,6 +10,7 @@ export default async function AdminLayout({ children }) {
 
     const isAuth: boolean = await ProtectPage("admin");
     const userName = await getUserName();
+    
 
     if (!isAuth) {
         redirect("/not-authorized");
