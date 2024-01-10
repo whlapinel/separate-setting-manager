@@ -5,9 +5,14 @@ import Heading from "@/ui/heading";
 import { getUserName } from "@/lib/authorization";
 import { getRoles } from "@/lib/data";
 import { getUserID } from "@/lib/authorization";
+import {sql} from "@vercel/postgres";
+import { log } from "console";
 
 
 export default async function Home() {
+
+  const {rows} = await sql`SELECT * FROM users`;
+  log(rows);
 
   const userName = await getUserName();
   const userID = await getUserID();
