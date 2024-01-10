@@ -1,6 +1,11 @@
 import { Client } from "pg";
 import { student, testClass, user, testEvent, tableName, status, role } from "./definitions";
 import { log } from "console";
+import { Pool } from 'pg'
+
+const pool = new Pool({
+  connectionString: "postgres://default:ZafC6OdkJ9MT@ep-misty-snow-50259301-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
+})
 
 export async function getPendingApplications(): Promise<any> {
   log("getting pending applications");
