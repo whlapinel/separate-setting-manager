@@ -2,6 +2,7 @@ import checkAuthorization from "@/lib/authorization";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { getPendingApplications } from "@/lib/data";
+import { getPendingApplicationsAlt } from "@/lib/data";
 import { role, user } from "@/lib/definitions";
 import { useFormStatus } from "react-dom";
 import { useFormState } from "react-dom"
@@ -13,7 +14,8 @@ export default async function PendingApplicationsPage({params}) {
     const {userID} = params;
 
 
-    const pendingApplications = await getPendingApplications();
+    const pendingApplications = await getPendingApplicationsAlt();
+    // const pendingApplications = await getPendingApplications();
 
     const applicationElements = pendingApplications?.map((user: user) => {
         const userNameString = `${user.firstName} ${user.lastName}`;
