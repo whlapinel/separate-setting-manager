@@ -14,10 +14,10 @@ export default async function Home() {
   const {rows} = await sql`SELECT * FROM users`;
   log(rows);
 
+  const roles = rows[0].roles;
+
   const userName = await getUserName();
   const userID = await getUserID();
-  const roles = await getRoles(userID);
-
 
   console.log("roles", roles);
   
