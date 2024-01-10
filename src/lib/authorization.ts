@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs";
-import { getUserByID } from "./data";
+import { getUserByID, getUserByIDAlt } from "./data";
 import { role, user } from "./definitions";
 import { User } from "@clerk/nextjs/dist/types/server";
 
@@ -26,7 +26,7 @@ export default async function ProtectPage(requiredRole: role): Promise<boolean> 
   // is user in database?  if not return false
   const clerkUser: User = await currentUser();
   const clerkUserId = clerkUser.primaryEmailAddressId;
-  const dbUser: user = await getUserByID(clerkUserId);
+  const dbUser: user = await getUserByIDAlt(clerkUserId);
   if (!dbUser) return false;
   
   // does user have required role?

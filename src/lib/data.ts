@@ -152,6 +152,11 @@ export async function editClass(changedClass: Partial<testClass>): Promise<strin
 
 }
 
+export async function getUserByIDAlt(userID: string): Promise<user> {
+  const {rows}: {rows: Array<user>} = await sql`SELECT * FROM "users" where "id" = ${userID}`;
+  return rows[0];
+}
+
 export async function getUserByID(userID: string): Promise<any> {
   log("getting user");
   const client = new Client();
