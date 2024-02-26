@@ -4,10 +4,11 @@ import { log } from "console";
 import { Pool } from 'pg'
 import { sql } from "@vercel/postgres"
 import { sq } from "date-fns/locale";
+import { stat } from "fs";
 
 
 export async function getPendingApplicationsAlt(): Promise<QueryResultRow> {
-  const {rows}: {rows: Array<user>} = await sql`SELECT * FROM "users" where "pending_roles" != '{}'`;
+  const { rows }: { rows: Array<user> } = await sql`SELECT * FROM "users" where "pending_roles" != '{}'`;
   return rows;
 }
 
@@ -36,21 +37,21 @@ export async function getRoles(userID: string): Promise<Array<role>> {
   let status: status;
   try {
 
-      await client.connect();
+    await client.connect();
 
-      const res = await client.query(
-          `SELECT roles FROM users WHERE id = '${userID}'`,
-      );
-      console.log(res.rows[0]);
-      status = "success";
-      return res.rows[0].roles;
+    const res = await client.query(
+      `SELECT roles FROM users WHERE id = '${userID}'`,
+    );
+    console.log(res.rows[0]);
+    status = "success";
+    return res.rows[0].roles;
   } catch (err) {
-      console.log(err);
-      status = "error";
+    console.log(err);
+    status = "error";
   }
   finally {
-      await client.end();
-      console.log(status);
+    await client.end();
+    console.log(status);
   }
 }
 
@@ -62,21 +63,21 @@ export async function getPendingRoles(userID: string): Promise<Array<string>> {
   let status: status;
   try {
 
-      await client.connect();
+    await client.connect();
 
-      const res = await client.query(
-          `SELECT pending_roles FROM users WHERE id = '${userID}'`,
-      );
-      console.log(res.rows[0]);
-      status = "success";
-      return res.rows[0].pending_roles;
+    const res = await client.query(
+      `SELECT pending_roles FROM users WHERE id = '${userID}'`,
+    );
+    console.log(res.rows[0]);
+    status = "success";
+    return res.rows[0].pending_roles;
   } catch (err) {
-      console.log(err);
-      status = "error";
+    console.log(err);
+    status = "error";
   }
   finally {
-      await client.end();
-      console.log(status);
+    await client.end();
+    console.log(status);
   }
 }
 
@@ -129,217 +130,80 @@ export async function createTestEvent(newTestEvent: testEvent): Promise<string> 
   }
 }
 
-export async function editClass(changedClass: Partial<testClass>): Promise<string> {
-  log("editing class");
-  const client = new Client();
+export async function editClass(changedClass: Partial<testClass>): Promise<void> {
   const { id, name, block, occurrence } = changedClass;
-  let status: string;
-  try {
-    await client.connect();
-    await client.query(
-      `UPDATE "testClasses" SET "name" = '${name}', "block" = '${block}', "occurrence" = '${occurrence}' WHERE "id" = '${id}'`
-    );
-    status = "success";
-  }
-  catch (err) {
-    console.error(err.message);
-    status = err.message;
-  }
-  finally {
-    await client.end();
-    return status;
-  }
-
+  const { rows } = await sql`UPDATE "testClasses" SET "name" = '${name}', "block" = '${block}', "occurrence" = '${occurrence}' WHERE "id" = '${id}'`
+    ;
 }
 
-export async function getUserByIDAlt(userID: string): Promise<user> {
-  const {rows}: {rows: Array<user>} = await sql`SELECT * FROM "users" where "id" = ${userID}`;
+export async function getUserByID(userID: string): Promise<user> {
+  const { rows }: { rows: Array<user> } = await sql`SELECT * FROM "users" where "id" = ${userID}`;
   return rows[0];
 }
 
-export async function getUserByID(userID: string): Promise<any> {
-  log("getting user");
-  const client = new Client();
-  try {
-    await client.connect();
-    const res = await client.query(
-      `SELECT * FROM "users" WHERE "id" = '${userID}'`
-    );
-    const user: user = res.rows[0];
-    return user;
-  }
-  catch (err) {
-    console.error(err.message);
-  }
-  finally {
-    await client.end();
-  }
-}
 
 
 export async function getTestClassByID(testClassID: string): Promise<any> {
-  log("getting test class");
-  const client = new Client();
-  try {
-    await client.connect();
-    const res = await client.query(
-      `SELECT * FROM "testClasses" WHERE "id" = '${testClassID}'`
-    );
-    const testClass: testClass = res.rows[0];
-    return testClass;
-  }
-  catch (err) {
-    console.error(err.message);
-  }
-  finally {
-    await client.end();
-  }
-
-
+  const { rows } = await sql`SELECT * FROM "testClasses" where "id" = ${testClassID}`;
+  return rows[0];
 }
 
 export async function deleteItem(id: string, tableName: tableName): Promise<void> {
   log(`deleting ${tableName}`);
-  const client = new Client();
-  try {
-    await client.connect();
-    log(`DELETE FROM "${tableName}" WHERE "id" = '${id}'`);
-    await client.query(
-      `DELETE FROM "${tableName}" WHERE "id" = '${id}'`
-    );
-  }
-  catch (err) {
-    console.error(err.message);
-  }
-  finally {
-    await client.end();
-  }
+  sql`DELETE FROM ${tableName} WHERE id = ${id}`;
 }
 
-export async function createStudent(newStudent: student): Promise<string> {
-  log("creating test class");
-  const client = new Client();
+export async function createStudent(newStudent: student): Promise<void> {
   const { id, firstName, lastName, testClass } = newStudent;
-  let status: string;
-  try {
-    await client.connect();
-    await client.query(
-      `INSERT INTO "students" ("id", "firstName", "lastName", "testClass") 
-      VALUES ('${id}', '${firstName}', '${lastName}', '${testClass}')`
-    );
-    status = "success";
-  }
-  catch (err) {
-    console.error(err.message);
-    status = err.message;
-  }
-  finally {
-    await client.end();
-    return status;
-  }
+  await sql
+    `INSERT INTO "students" ("id", "firstName", "lastName", "testClass") 
+      VALUES ('${id}', '${firstName}', '${lastName}', '${testClass}')`;
 }
 
-
-export async function createClass(newTestClass: testClass): Promise<string> {
+export async function createClass(newTestClass: testClass): Promise<void> {
   log("creating test class");
-  const client = new Client();
   const { id, name, block, occurrence, teacher } = newTestClass;
-  let status: string;
-  try {
-    await client.connect();
-    await client.query(
-      `INSERT INTO "testClasses" ("id", "name", "block", "occurrence", "teacher") 
+  await sql
+    `INSERT INTO "testClasses" ("id", "name", "block", "occurrence", "teacher") 
       VALUES ('${id}', '${name}', '${block}', '${occurrence}', '${teacher}')`
-    );
-    status = "Class Added!";
-  }
-  catch (err) {
-    console.error(err.message);
-    status = err.message;
-  }
-  finally {
-    await client.end();
-    return status;
-  }
+    ;
 }
 
-export async function getTestEvents(testClassID?: string, date?: Date): Promise<any> {
-  log("getting test events");
-  const client = new Client();
+export async function getTestEvents(testClassID?: string, date?: Date): Promise<Array<testEvent>> {
 
   // if only a date is provided, return all events on that date
   if (!testClassID && date) {
-    try {
-      await client.connect();
-      const res = await client.query(
+    const { rows }: { rows: Array<testEvent> } =
+      await sql
         `SELECT * FROM "testEvents" WHERE "testDate" = '${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}'`
-      );
-      const testEvents: Array<testEvent> = res.rows;
-      return testEvents;
-    } catch (error) {
-      console.error(error.message);
-    }
-    finally {
-      await client.end();
-    }
+      ;
+    return rows;
   }
 
   // if no testClassID or date is provided, return all testEvents
   if (!testClassID && !date) {
-    try {
-      await client.connect();
-      const res = await client.query(
-        `SELECT * FROM "testEvents"
+    const { rows }: { rows: Array<testEvent> } = await sql
+      `SELECT * FROM "testEvents"
         ORDER BY "testDate" ASC`
-      );
-      const testEvents: Array<testClass> = res.rows;
-      return testEvents;
-    }
-    catch (err) {
-      console.error(err.message);
-    }
-    finally {
-      await client.end();
-    }
+      ;
+    return rows;
   }
+
 
   // if a testClassID is provided, return only testEvents for that class
   if (testClassID) {
-    try {
-      await client.connect();
-      const res = await client.query(
-        `SELECT * FROM "testEvents" WHERE "testClass" = '${testClassID}'
+    const { rows }: { rows: Array<testEvent> } = await sql
+      `SELECT * FROM "testEvents" WHERE "testClass" = '${testClassID}'
         ORDER BY "testDate" ASC`
-      );
-      const testEvents: Array<testClass> = res.rows;
-      return testEvents;
-    }
-    catch (err) {
-      console.error(err.message);
-    }
-    finally {
-      await client.end();
-    }
+      ;
+    return rows;
   }
 }
 
-export async function getStudents(testClassID: string): Promise<any> {
-  log("getting students");
-  const client = new Client();
-  try {
-    await client.connect();
-    const res = await client.query(
-      `SELECT * FROM "students" WHERE "testClass" = '${testClassID}'`
-    );
-    const students: Array<student> = res.rows;
-    return students;
-  }
-  catch (err) {
-    console.error(err.message);
-  }
-  finally {
-    await client.end();
-  }
+export async function getStudents(testClassID: string): Promise<Array<student>> {
+  const { rows }: { rows: Array<student> } = await sql`SELECT * FROM "students" WHERE "testClass" = '${testClassID}'`
+    ;
+  return rows;
 }
 
 export async function getClasses(teacherID?: user['id']): Promise<any> {

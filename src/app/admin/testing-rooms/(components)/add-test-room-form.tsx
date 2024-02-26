@@ -33,7 +33,6 @@ export default function AddTestingRoomForm({ testRooms }) {
                     <div className=" grid grid-cols-3 gap-3 m-1">
                     <label htmlFor="roomNumber">Room Number</label>
                     <label htmlFor="roomDescription">Room Description</label>
-                    <div></div>
                     <Input type="text" id="roomNumber" name="roomNumber" placeholder="e.g. CA-3" />
                     <Input type="text" id="roomDescription" name="roomDescription" placeholder="e.g. broom closet, last resort" />
                     <SubmitButton />

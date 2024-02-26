@@ -26,7 +26,7 @@ export default async function ProtectPage(requiredRole: role): Promise<boolean> 
   // is user in database?  if not return false
   const clerkUser: User = await currentUser();
   const clerkUserId = clerkUser.primaryEmailAddressId;
-  const dbUser: user = await getUserByIDAlt(clerkUserId);
+  const dbUser: user = await getUserByID(clerkUserId);
   if (!dbUser) return false;
   
   // does user have required role?
